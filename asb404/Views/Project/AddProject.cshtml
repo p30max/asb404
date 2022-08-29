@@ -1,0 +1,110 @@
+﻿@model Asb404.Models.Project
+
+@{
+    ViewBag.Title = "اضافه کردن پروژه";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+    var noproject_list = new List<SelectListItem> { new SelectListItem { Text = "دائمی" } , new  SelectListItem {Text="فصلی" } };
+    var noPrivate_list = new List<SelectListItem> { new SelectListItem { Text = "دولتی" }, new SelectListItem { Text = "خصوصی" } };
+            }
+<section id="blog">
+   
+ 
+        <div class="container animated fadeInDown">
+            <div class="row">
+                <div class="panel-body  col-md-5 col-md-offset-4  ">
+                    
+                    <div class="farsi-Yekan-1 text-center Panel-google-White" style="padding:20px 20px 20px 20px; direction:rtl;">
+                        <h2 class="text-center">اضافه کردن پروژه</h2>
+                       
+                        <div id="msg" class="farsi-Yekan Label-google" style="height:10px;color:red;">@ViewBag.msg</div>
+                        @using (Html.BeginForm("AddProject", "Project", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.ValidationMessageFor(model => model.Customer, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Customer, new { htmlAttributes = new { @class = "form-control",placeholder="نام پروژه را وارد کنید" } })
+                               
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" ,placeholder = "موضوع قرارداد را وارد کنید" } })
+                                    
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.NoProject, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.ValidationMessageFor(model => model.NoProject, "", new { @class = "text-danger" })
+                                        @Html.DropDownListFor(model => model.NoProject, noproject_list, "نوع قرارداد انتخاب کنید",  new { @class = "form-control text-right col-md-9" })
+                                  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.noprivate, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.ValidationMessageFor(model => model.noprivate, "", new { @class = "text-danger" })
+                                        @Html.DropDownListFor(model => model.noprivate, noPrivate_list, "دولتی یا خصوصی راانتخاب کنید",  new { @class = "form-control  text-right" })
+                                  
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" , placeholder = "وبسایت را حتما با ://Http وارد کنید" } })
+                                  
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" , placeholder = "آدرس پروژه را وارد کنید" } })
+                                     
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Discription, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.ValidationMessageFor(model => model.Discription, "", new { @class = "text-danger" })
+                                        @Html.TextAreaFor(model => model.Discription,   new { @class = "form-control" ,placeholder = "توضیحات پروژه را وارد کنید" })
+                              
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+
+                                        @*<input type="button" id="btnUp" value="انتخاب عکس" onclick="$('#fu-my-simple-upload').click()" class="form-control"/>*@
+                                        <input type="file" name="file" id="file" />
+                                   
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="تائید" class="btn btn-default col-md-9 col-md-offset-3 "  />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div>
+
+                        </div>
+                        </div></div></div></div>
+    </section>

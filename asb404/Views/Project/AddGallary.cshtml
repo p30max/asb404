@@ -1,0 +1,88 @@
+﻿@model Asb404.Models.Gallary
+@using Asb404.Models
+@{
+    ViewBag.Title = "گالری تصاویر پروژه ها";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+    DBContexter _db = new DBContexter();
+    var pname = new SelectList(_db.Project.OrderBy(x => x.Customer), "id", "customer");
+    if (TempData["Cid"] != null)
+    {
+        int id = int.Parse(TempData["Cid"].ToString());
+
+        pname = new SelectList(_db.Project.OrderBy(x=>x.Customer).Where(c=>c.Id== id) , "id", "customer",id);
+    }
+    }
+
+<section id="blog">
+
+
+    <div class="container animated fadeInDown" >
+        <div class="row">
+            <div class="panel-body  col-md-5 col-md-offset-4  ">
+
+                <div class="farsi-Yekan-1 text-center Panel-google-White" style="padding:20px 20px 20px 20px; direction:rtl;">
+                    <h3 class="text-center">اضافه کردن عکس به پروژه</h3>
+
+                    <div id="msg" class="farsi-Yekan Label-google" style="height:10px;color:red;">@ViewBag.msg</div>
+
+                    @using (Html.BeginForm("Addgallary", "Project", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                  
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.idx, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(model => model.idx,pname,"نام پروژه را انتخاب کنید",  new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.idx, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                     
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Discription, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.Discription, new { htmlAttributes = new { @class = "form-control", placeholder = "توضیحات مربوط به عکس را وارد کنید" } })
+                                    @Html.ValidationMessageFor(model => model.Discription, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control",placeholder = "تاریخ عکس را وارد کنید" } })
+                                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    <input type="file" name="file" id="file" />
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="submit" value="تائید" class="btn btn-default col-md-9 col-md-offset-3 " />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                 
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            @Html.ActionLink("Back to List", "Index", "Home")
+        </div>
+    </div>
+  
+</section>

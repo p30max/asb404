@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "ورود به سایت امنیت سازان برتر چالوس";
+    Layout = "~/Views/shared/_LayoutPage.cshtml";
+}
+
+<section id="blog">
+    <div class="container animated fadeInDown">
+        <div class="row">
+            <div class="panel-body  col-md-4 col-md-offset-4">
+
+                <div class="farsi-Yekan-1 text-center Panel-google-White" style="padding:20px 20px 20px 20px; direction:rtl;">
+                    <h4><i class="fa fa-user fa-5x"></i></h4>
+                    <div id="msg" class="farsi-Yekan Label-google" style="height:10px;color:orangered;"></div>
+                    @using (Ajax.BeginForm("login", "Member", new { ReturnUrl = Request.QueryString["ReturnUrl"] }, new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "msg", LoadingElementId = "div_loading" }))
+                    {
+
+                        <div class="form-horizontal " style="margin-top:30px;">
+                            <div class="form-group">
+                                @*@Html.Label("نـــام کاربری", htmlAttributes: new { @class = "control-label col-md-4", style = "font-size:15px; font-weight: 400;" })*@
+                                <div class="col-md-12">
+                                    @Html.TextBox("UserName", null, new { @class = "form-control text-left", style = "font-size:15px;", placeholder = "نام کاربری خود را وارد کنید" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @*@Html.Label("رمـــز عبور", htmlAttributes: new { @class = "control-label col-md-4" , style = "font-size:15px; font-weight: 400;" })*@
+                                <div class="col-md-12">
+                                    @Html.Password("Password", null, new { @class = "form-control text-left", style = "font-size:15px;", placeholder = "رمز عبور را وارد کنید" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+
+                                <div style="margin-left:6%;text-align:left;">
+                                    @Html.Label("در حافظه باقی بماند", new { @class = "farsi-Yekan" })
+                                    @Html.CheckBox("Remember")
+
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @*col-md-offset-4*@
+                                    <input type="submit" value="ورود به سایت" class="btn btn-block btn-theme btn-add " style="background-color:#fc7700;" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @*@Html.ActionLink("ثبت نام", "CreateUser", "Member", new { Name = "Example", id = "link1" }, htmlAttributes: new { @class = "control-label col-md-4 Label-google",@style= "color:#fc7700;" })*@
+
+                                @Html.ActionLink("رمز عبور را فراموش کردم", "Login", "Member", new { Name = "Example", id = "link1" }, htmlAttributes: new { @class = "control-label col-md-8 Label-google", @style = "color:#fc7700;" })
+
+                            </div>
+
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>

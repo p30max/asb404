@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="امنیت سازان برتر چالوس">
+    <meta name="keywords" content=" امنیت بیمارستان ها, امنیت شهرک ها, امنیت مراکز عمومی, پلیس پیشگیری,امنیت سازان" />
+    <meta name="author" content="">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/animate.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/prettyPhoto.css" rel="stylesheet">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/main.css" rel="stylesheet">
+    <link href="~/Content/responsive.css" rel="stylesheet">
+    <link href="~/Content/FontFarsi.css" rel="stylesheet" />
+    <!--[if lt IE 9]> <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script> <![endif]-->
+    <link rel="shortcut icon" href="~/images/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+<body>
+    <div id="wrapper">
+        <div class="preloader">
+            <div class="preloder-wrap">
+                <div class="preloder-inner">
+                    <div class="ball"></div>
+                    <div class="ball"></div>
+                    <div class="ball"></div>
+                    <div class="ball"></div>
+                    <div class="ball"></div>
+                    <div class="ball"></div>
+                    <div class="ball"></div>
+                </div>
+            </div>
+        </div><!--/.preloader-->
+        <header id="navigation">
+            <div class="navbar navbar-inverse navbar-fixed-top" role="banner">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="~/">
+                            <h1>
+                                <img src="~/images/logo.png" alt="logo">
+                            </h1>
+                        </a>
+
+                        <div style="float:left;margin-top:30px;">
+                            @if (Request.IsAuthenticated)
+                            {
+
+
+                                <div style="display: inline;font-family:Arial;font-size:11px;font-weight:500;">
+                                    Hi @Html.Encode(User.Identity.Name.ToUpper())
+
+                                </div>
+                                <span>|</span>
+
+                                @Html.ActionLink("خروج", "Logout", "Member", null, new { @class = "", @style = "display: inline" });
+                            }
+                            else
+                            {
+                                @*@Html.ActionLink("ثبت نام", "Login", "Member", null, new { @style = "display: inline" });
+                                    <span> | </span>*@
+                                @Html.ActionLink("ورود به سایت", "Login", "Member", null, new { @style = "display: inline" });
+
+                                @*@Html.ActionLink("t", "Login", "Home", null, new { @class = "fa fa-shopping-cart", @style = "display: inline" });*@
+
+                            }
+                        </div>
+                    </div>
+                    <div class="collapse navbar-collapse">
+
+
+
+                        <ul class="farsi-Yekan-1 nav navbar-nav navbar-right ">
+                            <li class="active"><a href="~/Home/index">صفحه اصلی</a></li>
+                            <li><a href="~/Home/About">درباره ما</a></li>
+                            <li><a href="~/Project/Showproject">پروژه ها</a></li>
+                            <li><a href="~/Project/ShowGallary">گالری تصاویر</a></li>
+                            <li><a href="~/Home/Ghavanin">قوانین و مقررات</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-angle-down"></i> مدیریت سایت</a>
+                                <ul class="dropdown-menu" style="direction:rtl;text-align:right;">
+                                    <li><a href="~/Member/Login">ورود به سایت</a></li>
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        <li><a href="~/Member/ChangePassword">تغییر رمز عبور</a></li>
+                                        <li><a href="~/Admin/Banner_Add">اضافه کردن بنر</a></li>
+                                        <li><a href="~/Project/Addproject">ثبت پروژه</a></li>
+                                        <li><a href="~/Project/AddGallary">ثبت تصاویر</a></li>
+                                    }
+                                    <li><a href="~/project/Listproject">لیست پروژه</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">خبرنامه</a></li>
+                                    <li><a href="#">تیم اجرایی</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="scroll"><a href="~/Home/Contact">تماس با ما</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div><!--/navbar-->
+        </header> <!--/#navigation-->
+        @RenderBody()
+        <section id="contact">
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title text-center" id="myModalLabel">موسسه حفاظتی امنیت سازان برتر</h4>
+                        </div>
+                        <div class="modal-body text-right">
+                            <p id="Lmsgh" class="Label-google" style="color:#fc7700;"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" style="background-color:#fc7700;color:white;">بستن</button>
+                            @*<button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="pattern"> </div>*@
+            <!--/#contact-->
+            <div class="container">
+                <div class="container farsi-Yekan-1">
+                    <div class="row text-right">
+                        <div class="col-sm-4 col-lg-4">
+                            <div class="widget">
+                                <h4>موسسه امنیت سازان برتر</h4>
+                                <address>
+                                    <strong>آدرس</strong><br>
+                                    چالوس ، خیابان امام خمینی ، کوچه طاولی ، ساختمان میلاد ، طبقه 5 واحد شرقی
+                                </address>
+                                <p>
+                                    <i class="icon-phone"></i> تلفن: 52219609      فکس: 52221410  <br> مدیر اجرایی:09115248404  <br>
+                                    <i class="font-icon-email_2" style="font-family:Arial;"></i> Amniyat_sazan_bartar_chalous@yahoo.com
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-lg-4">
+                            <div class="widget">
+                                <h4>فعالیت های موسسه</h4>
+                                <ul style="list-style-type:none;">
+                                    <li><a href="#">اجرای احکام دادگستری در معیت ضابطین قضایی انتظامی</a></li>
+                                    <li><a href="#">امنیت شهرک ها و مجتمع ها</a></li>
+                                    <li><a href="#">جلسات اداری و سازمانی</a></li>
+                                    <li><a href="#">امنیت مراکز خرید</a></li>
+                                    <li><a href="#">امنیت مراکز درمانی</a></li>
+                                    <li><a href="#">نظارت پارکینگ ها </a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4 col-lg-4">
+                            <div class="widget">
+                                <h4>اشتراک خبرنامه</h4>
+                                <p>با ثبت ایمیل خود می توانید از اخبار موسسه مطلع شوید</p>
+                                @*@using (Ajax.BeginForm("AddSubscriber", "Home", new AjaxOptions { UpdateTargetId = "Lmsgh", HttpMethod = "get", InsertionMode = InsertionMode.Replace }))
+                                    {
+                                        <input type="submit" value="ورود به سایت" class="btn btn-block btn-theme btn-add" style="background-color:#fc7700;" onclick="$('#btn11').click()"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-add" style="background-color:#fc7700;color:white;" onclick="$('#btn11').click()">اشتراک</button>
+                                            <button id="btn10" type="submit" class="btn btn-primary btn-add hide" data-toggle="modal" data-target="#myModal">Subscribe</button>
+                                            <a id="btn11" class="btn btn-theme btn-add hidden" data-toggle="modal" data-target="#myModal"></a>
+                                        </span>
+                                    }*@
+                                @using (Ajax.BeginForm("AddSubscriber", "Home", new AjaxOptions { UpdateTargetId = "Lmsgh", HttpMethod = "get", InsertionMode = InsertionMode.Replace }))
+                                {
+                                    <div class="form-group multiple-form-group input-group">
+
+                                        <span class="input-group-btn">
+                                            <input type="submit" class="btn btn-default btn-add" value="اشتراک" style="background-color:#fc7700;color:white;" onclick="$('#btn11').click()" />
+                                            <input id="btn11" type="submit" class="btn btn-primary btn-add hide" data-toggle="modal" data-target="#myModal" />
+                                        </span>
+                                        @Html.TextBox("email", null, new { @class = "form-control text-right", placeholder = "ایمیل خود را وارد کنید", type = "email" })
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="modal fade" id="blog-detail" tabindex="-1" role="dialog" aria-hidden="true">
+            @*<div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            @if (item.image != null)
+                            {
+                                <img src="@item.image" alt="" />
+                            }
+                            else
+                            {
+                                <img src="~/Images/image.jpg" />
+                            }
+                            <h2 style="direction:rtl">@item.Customer</h2>
+                            <p style="direction:rtl">@item.Discription</p>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+        <!-- Footer -->
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="container">
+                <div class="text-center">
+                    <p style="font-family:Arial;">Copyright &copy; 2017 - <a href="http://www.p30max.com/">Design Majid Abasi</a> | All Rights Reserved</p>
+                </div>
+            </div>
+        </footer> <!--/#footer-->
+        <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+    </div>
+    <div id="div_loading" style="display: none; position: fixed; z-index: 1000;
+ background-image: url('../../images/prettyPhoto/light_square/loader.gif');
+  background-color: #000000; opacity: 0.4; background-repeat: no-repeat; background-position: center; left: 0; bottom: 0; right: 0; top: 0; ">
+
+        @*<img src="~/wwwroot/img/cbp-loading.gif" />*@
+        @*<p>  Please Wait..</p>*@
+    </div>
+
+    @*<script src="~/Scripts/jquery-3.1.1.min.js"></script>*@
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+
+    <script type="text/javascript" src="~/Scripts/jquery.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/smoothscroll.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.parallax.js"></script>
+    <script type="text/javascript" src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

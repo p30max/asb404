@@ -1,0 +1,26 @@
+﻿@using Asb404.Models
+@{
+    DBContexter _db = new DBContexter();
+    int id = ViewBag.ID;
+    var model = _db.Project.Where(x => x.Id == id);
+    var img = model.Select(x => x.image).FirstOrDefault();
+    var Customer = model.Select(x => x.Customer).FirstOrDefault();
+    var Discription = model.Select(x => x.Discription).FirstOrDefault();
+}
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            @if (model.Select(x=>x.image).FirstOrDefault() != null)
+            {
+                <img src="@img" class="img-responsive" alt="" />
+            }
+            else
+            {
+                <img src="~/Images/image.jpg" />
+            }
+            <h2 style="direction:rtl" class="farsi-Yekan-h2">@Customer</h2>
+            <p style="direction:rtl">@Discription</p>
+        </div>
+    </div>
+</div>

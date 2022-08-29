@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Asb404.Models.Gallary>
+@using Asb404.Models
+@{
+    DBContexter _db = new DBContexter();
+}
+<section id="portfolio">
+    <div class="container animated fadeInDown">
+        <div class="row text-center">
+            <div class="col-sm-8 col-sm-offset-2">
+                <h2 class="title-one farsi-Yekan-h2">گالری تصاویر نمونه پروژه ها</h2>
+                @*<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit.</p>*@
+            </div>
+        </div>
+        @*<ul class="portfolio-filter text-center">
+            <li><a class="btn btn-default active" href="#" data-filter="*">All</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".html">Html</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".wordpress">Wordpress</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".joomla">Joomla</a></li>
+            <li><a class="btn btn-default" href="#" data-filter=".megento">Megento</a></li>
+        </ul>*@<!--/#portfolio-filter-->
+
+        <div class="portfolio-items">
+            @foreach (var item in Model)
+            {
+                string cs = "", Website = "";
+                var mm = _db.Project.Find(item.idx);
+                if (mm != null)
+                {
+                    cs = _db.Project.Find(item.idx).Customer;
+                    Website = _db.Project.Find(item.idx).Website;
+                }
+
+                <div class="col-sm-3 col-xs-12 portfolio-item html">
+                    <div class="view efffect">
+                   
+                        <div class="portfolio-image">
+                            <img src="@item.image"  alt="">
+                         
+                        </div>
+                        <div class="mask text-center">
+                            <h3>@cs</h3>
+                            <h4>@item.Discription.ToString()</h4>
+                            @if (item.Date != null && String.IsNullOrEmpty(item.Date) == false)
+    {
+                        <h4>@item.Date.ToString()</h4>
+}
+                            <a href="@Website"><i class="fa fa-link"></i></a>
+
+                            <a href="@item.image" data-gallery="prettyPhoto"><i class="fa fa-search-plus"></i></a>
+                            @if (Request.IsAuthenticated)
+    {
+                        <a href="~/project/DeleteGallary/@item.id"><i class="fa fa-minus"></i></a>
+
+
+}
+                        </div>
+                    </div>
+
+                </div>
+               
+            }
+
+        </div>
+    </div>
+
+
+</section> <!--/#portfolio-->
