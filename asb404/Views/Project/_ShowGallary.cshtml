@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Asb404.Models.Gallary>
 @using Asb404.Models
+@using PagedList;
+@using PagedList.Mvc;
 @{
     DBContexter _db = new DBContexter();
 }
@@ -12,12 +14,12 @@
             </div>
         </div>
         @*<ul class="portfolio-filter text-center">
-            <li><a class="btn btn-default active" href="#" data-filter="*">All</a></li>
-            <li><a class="btn btn-default" href="#" data-filter=".html">Html</a></li>
-            <li><a class="btn btn-default" href="#" data-filter=".wordpress">Wordpress</a></li>
-            <li><a class="btn btn-default" href="#" data-filter=".joomla">Joomla</a></li>
-            <li><a class="btn btn-default" href="#" data-filter=".megento">Megento</a></li>
-        </ul>*@<!--/#portfolio-filter-->
+                <li><a class="btn btn-default active" href="#" data-filter="*">All</a></li>
+                <li><a class="btn btn-default" href="#" data-filter=".html">Html</a></li>
+                <li><a class="btn btn-default" href="#" data-filter=".wordpress">Wordpress</a></li>
+                <li><a class="btn btn-default" href="#" data-filter=".joomla">Joomla</a></li>
+                <li><a class="btn btn-default" href="#" data-filter=".megento">Megento</a></li>
+            </ul>*@<!--/#portfolio-filter-->
 
         <div class="portfolio-items">
             @foreach (var item in Model)
@@ -32,36 +34,57 @@
 
                 <div class="col-sm-3 col-xs-12 portfolio-item html">
                     <div class="view efffect">
-                   
+
                         <div class="portfolio-image">
-                            <img src="@item.image"  alt="">
-                         
+                            <img src="@item.image" alt="">
+
                         </div>
                         <div class="mask text-center">
                             <h3>@cs</h3>
                             <h4>@item.Discription.ToString()</h4>
                             @if (item.Date != null && String.IsNullOrEmpty(item.Date) == false)
-    {
-                        <h4>@item.Date.ToString()</h4>
-}
+                            {
+                                <h4>@item.Date.ToString()</h4>
+                            }
                             <a href="@Website"><i class="fa fa-link"></i></a>
 
                             <a href="@item.image" data-gallery="prettyPhoto"><i class="fa fa-search-plus"></i></a>
                             @if (Request.IsAuthenticated)
-    {
-                        <a href="~/project/DeleteGallary/@item.id"><i class="fa fa-minus"></i></a>
+                            {
+                                <a href="~/project/DeleteGallary/@item.id"><i class="fa fa-minus"></i></a>
 
 
-}
+                            }
                         </div>
                     </div>
 
                 </div>
-               
+
             }
 
         </div>
     </div>
-
+    @*@Html.PagedListPager((IPagedList)Model, page => Url.Action("_showGallary", new
+    {
+page,
+        LiElementClasses = new List<string> { "myClass", "yourClass" },
+//The following properties are the same as OnlyShowFivePagesAtATime
+DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+DisplayLinkToNextPage = PagedListDisplayMode.Always,
+MaximumPageNumbersToDisplay = 10
+}))
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("_showGallary", new
+    {
+        page,
+        LiElementClasses = new List<string> { "myClass", "yourClass" },
+    //The following properties are the same as OnlyShowFivePagesAtATime
+    DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+    DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+    MaximumPageNumbersToDisplay = 10
+}), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "get", UpdateTargetId = "PanelPage", LoadingElementId = "div_loading", InsertionMode = InsertionMode.Replace }))*@
 
 </section> <!--/#portfolio-->

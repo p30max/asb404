@@ -6,8 +6,8 @@ using System.Web.Mvc;
 using Asb404.Models;
 using System.Drawing;
 using System.IO;
+using PagedList;
 using ImageResizer;
-using System.Web.Helpers;
 
 namespace Asb404.Controllers
 {
@@ -341,16 +341,21 @@ namespace Asb404.Controllers
             return View();
         }
 
-        public ActionResult _ShowGallary(int?id)
+        public ActionResult _ShowGallary(int?id, int? page)
         {
-            if(id!=null)
-            { 
-            return PartialView(_db.Gallaries.Where(x=>x.idx==id));
+            List<Gallary> Gl = new List<Gallary>();
+            if (id!=null)
+            {
+                Gl = _db.Gallaries.Where(x => x.idx == id).ToList();
+            
             }
             else
             {
-                return PartialView(_db.Gallaries);
+                Gl = _db.Gallaries.ToList();
             }
+            var pagenumber = page ?? 1;
+            var Apage = Gl.ToPagedList(pagenumber, 3000);
+            return PartialView(Apage);
         }
 
         public ActionResult ShowGallary()

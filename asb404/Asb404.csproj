@@ -75,6 +75,12 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -133,8 +139,8 @@
     <Content Include="Content\FontFarsi.css" />
     <Content Include="Content\jquery.sidr.dark.css" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\prettyPhoto.css" />
-    <Content Include="Content\reset.css" />
     <Content Include="Content\responsive.css" />
     <Content Include="Content\Site.css" />
     <Content Include="css\bootstrap.min.css" />
@@ -143,7 +149,6 @@
     <Content Include="css\jquery.sidr.dark.css" />
     <Content Include="css\main.css" />
     <Content Include="css\prettyPhoto.css" />
-    <Content Include="css\reset.css" />
     <Content Include="css\responsive.css" />
     <Content Include="fonts\farsi\WYekan.svg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -152,6 +157,16 @@
     <Content Include="images\about-us\about.jpg" />
     <Content Include="images\about-us\community.jpg" />
     <Content Include="images\about-us\mission.jpg" />
+    <Content Include="images\Banner\04-20-201900-58-15-7865277.jpg" />
+    <Content Include="images\Banner\04-20-201901-29-53-6268464.jpg" />
+    <Content Include="images\Banner\04-20-201901-30-38-2199699.jpg" />
+    <Content Include="images\Banner\04-20-201901-35-16-4521620.jpg" />
+    <Content Include="images\Banner\04-20-201901-38-46-1299322.jpg" />
+    <Content Include="images\Banner\04-20-201901-40-27-5416950.jpg" />
+    <Content Include="images\Banner\04-20-201901-41-43-7916131.jpg" />
+    <Content Include="images\Banner\04-20-201901-42-17-3876494.jpg" />
+    <Content Include="images\Banner\04-20-201901-42-26-3642942.jpg" />
+    <Content Include="images\Banner\04-20-201901-43-27-7581632.jpg" />
     <Content Include="images\blog\1.jpg" />
     <Content Include="images\blog\2.jpg" />
     <Content Include="images\blog\3.jpg" />
@@ -159,6 +174,12 @@
     <Content Include="images\clients\client1.jpg" />
     <Content Include="images\clients\client2.jpg" />
     <Content Include="images\clients\client3.jpg" />
+    <Content Include="images\Gallary\121455.jpg" />
+    <Content Include="images\Gallary\295752.jpg" />
+    <Content Include="images\Gallary\475891.jpg" />
+    <Content Include="images\Gallary\529343.jpg" />
+    <Content Include="images\Gallary\605021.jpg" />
+    <Content Include="images\Gallary\830489.jpg" />
     <Content Include="images\home-pattern.png" />
     <Content Include="images\ico\apple-touch-icon-114-precomposed.png" />
     <Content Include="images\ico\apple-touch-icon-144-precomposed.png" />
@@ -232,11 +253,12 @@
     <Content Include="images\prettyPhoto\light_square\default_thumbnail.gif" />
     <Content Include="images\prettyPhoto\light_square\loader.gif" />
     <Content Include="images\prettyPhoto\light_square\sprite.png" />
+    <Content Include="images\Project\فروشگاه مکث.jpg" />
     <Content Include="images\slider\Picture-1971.jpg" />
     <Content Include="images\slider\slide1.jpg" />
     <Content Include="images\slider\slide11.jpg" />
+    <Content Include="images\slider\slide1e.jpg" />
     <Content Include="images\slider\slide2.jpg" />
-    <Content Include="images\slider\slide22.jpg" />
     <Content Include="images\slider\slide3.jpg" />
     <Content Include="images\slider\slide33.jpg" />
     <Content Include="js\bootstrap.min.js" />

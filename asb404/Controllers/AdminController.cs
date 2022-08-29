@@ -23,7 +23,7 @@ namespace Asb404.Controllers
   
         public ActionResult _Banner_List()
         {
-            return PartialView(_db.Banner);
+            return PartialView(_db.Banner.ToList());
         }
         [HttpGet]
         public ActionResult Banner_Add()
