@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Asb404.Models;
+using ImageResizer;
+using PagedList;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Asb404.Models;
-using System.Drawing;
-using System.IO;
-using PagedList;
-using ImageResizer;
 
 namespace Asb404.Controllers
 {
@@ -17,19 +17,19 @@ namespace Asb404.Controllers
         // GET: Project
         [HttpGet]
         [Authorize]
-        public ActionResult AddProject()
+        public ActionResult Add()
         {
             return View();
         }
         [HttpPost]
-    
-        public ActionResult AddProject(Project model, HttpPostedFileBase file)
+
+        public ActionResult Add(Project model, HttpPostedFileBase file)
         {
-      if (ModelState.IsValid)
+            if (ModelState.IsValid)
 
-                    { 
+            {
 
-            if (file == null)
+                if (file == null)
                 {
 
 
@@ -37,12 +37,12 @@ namespace Asb404.Controllers
 
                 }
                 else
-            if (System.IO.Path.GetExtension(file.FileName).ToLower() != ".jpg" && System.IO.Path.GetExtension(file.FileName).ToLower() != ".jpeg")
+                if (System.IO.Path.GetExtension(file.FileName).ToLower() != ".jpg" && System.IO.Path.GetExtension(file.FileName).ToLower() != ".jpeg")
                 {
                     ViewBag.msg = "عکس مورد نظر فقط باید jpg باشد";
                 }
                 else
-              if (!(file.ContentLength < 1024 * 8000))
+                  if (!(file.ContentLength < 1024 * 8000))
                 {
                     ViewBag.msg = "عکس نباید از 8000 کیلو بایت بیشتر باشد";
                 }
@@ -70,47 +70,47 @@ namespace Asb404.Controllers
                                 ViewBag.msg = "عکس با موفقیت آپلود شد";
                                 model.image = ("/Images/" /*+ UrlFolder + "/" */+ OrderName);
                                 if (_db.Project.Where(x => x.Customer == model.Customer).Count() >= 1)
-                            {
-                                        ViewBag.msg = "نام پروژه شما قبلاٌ انتخاب شده لطفٌ مجدد انتخاب کنید";
-                            }
-                            else
-                            { 
-                            _db.Project.Add(model);
-                        
-                                _db.SaveChanges();
-                            }
-                            string path1 = Server.MapPath("/Images/" /*+ UrlFolder + "/" */+ OrderName);
-                            string path2 = Server.MapPath("/Images/" /*+ UrlFolder + "/" */+ OrderName);
-                            ResizeSettings resizeSetting = new ResizeSettings
-                            {
-                                Mode = FitMode.Stretch,
-                                Width = 600,
-                                Height = 400,
+                                {
+                                    ViewBag.msg = "نام پروژه شما قبلاٌ انتخاب شده لطفٌ مجدد انتخاب کنید";
+                                }
+                                else
+                                {
+                                    _db.Project.Add(model);
 
-                                Format = "jpg"
-                            };
-                            ImageBuilder.Current.Build(path1, path2, resizeSetting);
+                                    _db.SaveChanges();
+                                }
+                                string path1 = Server.MapPath("/Images/" /*+ UrlFolder + "/" */+ OrderName);
+                                string path2 = Server.MapPath("/Images/" /*+ UrlFolder + "/" */+ OrderName);
+                                ResizeSettings resizeSetting = new ResizeSettings
+                                {
+                                    Mode = FitMode.Stretch,
+                                    Width = 600,
+                                    Height = 400,
 
-                        }
+                                    Format = "jpg"
+                                };
+                                ImageBuilder.Current.Build(path1, path2, resizeSetting);
+
+                            }
                             catch (Exception ex)
                             {
                                 ViewBag.msg = string.Format("File upload failed: {0}", ex.Message);
                             }
                         }
                     }
-              
-                }
-              
 
-            
-            
+                }
+
+
+
+
             }
             return View();
         }
         [Authorize]
-        public ActionResult DeleteProject(int?id)
+        public ActionResult Delete(int? id)
         {
-            string fullPath =Request.MapPath( _db.Project.Find(id).image);
+            string fullPath = Request.MapPath(_db.Project.Find(id).image);
             if (System.IO.File.Exists(fullPath))
             {
                 System.IO.File.Delete(fullPath);
@@ -120,35 +120,35 @@ namespace Asb404.Controllers
             _db.SaveChanges();
             return RedirectToAction("ListProject");
         }
-        public ActionResult Showproject()
+        public ActionResult Show()
         {
             return View();
         }
-        public ActionResult _Showproject()
+        public ActionResult _Show()
         {
             return PartialView(_db.Project);
         }
-        public ActionResult DetailProject(int?id)
+        public ActionResult DetailProject(int? id)
         {
             ViewBag.id = id;
             return PartialView();
         }
         [Authorize]
-        public ActionResult DeleteGallary(int?id)
+        public ActionResult DeleteGallary(int? id)
         {
-        string fullPath = Request.MapPath(_db.Gallaries.Find(id).image);
+            string fullPath = Request.MapPath(_db.Gallaries.Find(id).image);
             if (System.IO.File.Exists(fullPath))
             {
                 System.IO.File.Delete(fullPath);
                 //Session["DeleteSuccess"] = "Yes";
             }
-    _db.Gallaries.Remove(_db.Gallaries.Find(id));
+            _db.Gallaries.Remove(_db.Gallaries.Find(id));
             _db.SaveChanges();
-            return RedirectToAction("ShowGallary","Project");
+            return RedirectToAction("ShowGallary", "Project");
         }
         public ActionResult listProject()
         {
-            var Model = _db.Project.OrderByDescending(x => x.Id).ToList().OrderBy(c=>c.Customer);
+            var Model = _db.Project.OrderByDescending(x => x.Id).ToList().OrderBy(c => c.Customer);
             //var pageNumber = page ?? 1;
             //var Apage = st.ToPagedList(pageNumber, 5);
             //ViewBag.Apage = st.ToPagedList(pageNumber, 5);
@@ -158,12 +158,12 @@ namespace Asb404.Controllers
         }
         [HttpGet]
         [Authorize]
-        public ActionResult EditProject(int ?id)
+        public ActionResult EditProject(int? id)
         {
             return View(_db.Project.Find(id));
         }
         [HttpPost]
-       
+
         public ActionResult EditProject(Project model, HttpPostedFileBase file)
         {
             if (file != null)
@@ -207,12 +207,13 @@ namespace Asb404.Controllers
                                 ViewBag.msg = "عکس با موفقیت آپلود شد";
                                 model.image = ("/Images/" /*+ UrlFolder + "/" */+ OrderName);
 
-                        
+
                                 string path1 = Server.MapPath("/Images/" /*+ UrlFolder + "/" */+ OrderName);
                                 string path2 = Server.MapPath("/Images/" /*+ UrlFolder + "/" */+ OrderName);
                                 ResizeSettings resizeSetting = new ResizeSettings
                                 {
-                                    Mode = FitMode.Stretch, Width = 600,
+                                    Mode = FitMode.Stretch,
+                                    Width = 600,
                                     Height = 400,
 
                                     Format = "jpg"
@@ -245,11 +246,11 @@ namespace Asb404.Controllers
 
             return View();
         }
- 
+
 
         [HttpGet]
         [Authorize]
-        public ActionResult Addgallary(int?id)
+        public ActionResult Addgallary(int? id)
         {
             TempData["Cid"] = id;
             return View();
@@ -291,17 +292,17 @@ namespace Asb404.Controllers
 
                         if (file != null && file.ContentLength != 0)
                         {
-                             string UrlFolder= "/Images/" + "Gallary";
+                            string UrlFolder = "/Images/" + "Gallary";
                             string pathForSaving = Server.MapPath(UrlFolder);
                             if (this.CreateFolderIfNeeded(pathForSaving))
                             {
                                 try
                                 {
-                                    string OrderName = (int)((DateTime.Now.Ticks / 10) % 1000000)+ System.IO.Path.GetExtension(file.FileName).ToLower();
+                                    string OrderName = (int)((DateTime.Now.Ticks / 10) % 1000000) + System.IO.Path.GetExtension(file.FileName).ToLower();
                                     file.SaveAs(Path.Combine(pathForSaving, OrderName));
                                     //isUploaded = true;
                                     ViewBag.msg = "عکس با موفقیت آپلود شد";
-                                    model.image = ( UrlFolder + "/"+ OrderName);
+                                    model.image = (UrlFolder + "/" + OrderName);
 
                                     _db.Gallaries.Add(model);
                                     _db.SaveChanges();
@@ -312,10 +313,10 @@ namespace Asb404.Controllers
 
                                     ResizeSettings resizeSetting = new ResizeSettings
                                     {
-                              Mode=FitMode.Stretch,
+                                        Mode = FitMode.Stretch,
                                         Width = 800
                                      ,
-                               
+
                                         Height = 600,
                                         Format = "jpg"
                                     };
@@ -336,18 +337,18 @@ namespace Asb404.Controllers
 
                 }
             }
-               
-           
+
+
             return View();
         }
 
-        public ActionResult _ShowGallary(int?id, int? page)
+        public ActionResult _Show(int? id, int? page)
         {
             List<Gallary> Gl = new List<Gallary>();
-            if (id!=null)
+            if (id != null)
             {
                 Gl = _db.Gallaries.Where(x => x.idx == id).ToList();
-            
+
             }
             else
             {

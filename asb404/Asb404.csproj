@@ -408,8 +408,8 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Project\ShowGallary.cshtml" />
-    <Content Include="Views\Project\_ShowGallary.cshtml" />
+    <Content Include="Views\Project\Show.cshtml" />
+    <Content Include="Views\Project\_Show.cshtml" />
     <Content Include="Views\Project\AddGallary.cshtml" />
     <Content Include="Views\Project\DetailProject.cshtml" />
   </ItemGroup>

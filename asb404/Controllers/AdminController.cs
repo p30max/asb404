@@ -1,7 +1,6 @@
 ﻿using Asb404.Models;
 using ImageResizer;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Drawing;
 using System.IO;
@@ -20,18 +19,18 @@ namespace Asb404.Controllers
         {
             return View();
         }
-  
-        public ActionResult _Banner_List()
+
+        public ActionResult _List()
         {
             return PartialView(_db.Banner.ToList());
         }
         [HttpGet]
-        public ActionResult Banner_Add()
+        public ActionResult Add()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Banner_Add(Banner model, HttpPostedFileBase file, Validate vlt)
+        public ActionResult Add(Banner model, HttpPostedFileBase file, Validate vlt)
         {
             if (ModelState.IsValid)
 
@@ -70,13 +69,13 @@ namespace Asb404.Controllers
                     if (file != null && file.ContentLength != 0)
                     {
                         //string UrlFolder = _db.AllNews.Find(model.Group).;
-                       // string UrlFolder = _db.Banner.Find(model.Id).Id.ToString();
+                        // string UrlFolder = _db.Banner.Find(model.Id).Id.ToString();
                         string pathForSaving = Server.MapPath("/images/Banner/" /*+ UrlFolder + "/"*/);
-                       // string pathl1 = Server.MapPath("/images/Article/" + UrlFolder + "/");
-                 
+                        // string pathl1 = Server.MapPath("/images/Article/" + UrlFolder + "/");
 
-                      vlt.CreateFolderIfNeeded(pathForSaving);
-                    
+
+                        vlt.CreateFolderIfNeeded(pathForSaving);
+
 
 
                         try
@@ -92,11 +91,11 @@ namespace Asb404.Controllers
                             //  string OrderName = file.FileName;
                             file.SaveAs(Path.Combine(pathForSaving, OrderName));
                             //isUploaded = true;
-                            string path1 = Server.MapPath("/images/Banner/"  + OrderName);
-        
+                            string path1 = Server.MapPath("/images/Banner/" + OrderName);
 
-                            model.Image = ("/images/Banner/"+ OrderName);
-                    
+
+                            model.Image = ("/images/Banner/" + OrderName);
+
 
 
                             ResizeSettings resizeSetting1 = new ResizeSettings
@@ -111,7 +110,7 @@ namespace Asb404.Controllers
                             };
                             ImageBuilder.Current.Build(path1, path1, resizeSetting1);
 
-                          
+
 
                             if (model.Id == 0) _db.Banner.Add(model);
                             else
@@ -137,7 +136,7 @@ namespace Asb404.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Baner_Edit(Banner model, HttpPostedFileBase file,Validate vlt)
+        public ActionResult Edit(Banner model, HttpPostedFileBase file, Validate vlt)
         {
 
             if (ModelState.IsValid)
@@ -241,7 +240,7 @@ namespace Asb404.Controllers
         }
 
         [HttpDelete]
-        public ActionResult Banner_Delete(int? Id)
+        public ActionResult Delete(int? Id)
         {
             return View();
         }
