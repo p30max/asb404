@@ -50,18 +50,13 @@
                                 <img src="~/images/logo.png" alt="logo">
                             </h1>
                         </a>
-
                         <div style="float:left;margin-top:30px;">
                             @if (Request.IsAuthenticated)
                             {
-
-
                                 <div style="display: inline;font-family:Arial;font-size:11px;font-weight:500;">
                                     Hi @Html.Encode(User.Identity.Name.ToUpper())
-
                                 </div>
                                 <span>|</span>
-
                                 @Html.ActionLink("خروج", "Logout", "Member", null, new { @class = "", @style = "display: inline" });
                             }
                             else
@@ -71,39 +66,62 @@
                                 @Html.ActionLink("ورود به سایت", "Login", "Member", null, new { @style = "display: inline" });
 
                                 @*@Html.ActionLink("t", "Login", "Home", null, new { @class = "fa fa-shopping-cart", @style = "display: inline" });*@
-
                             }
                         </div>
                     </div>
                     <div class="collapse navbar-collapse">
-
-
-
                         <ul class="farsi-Yekan-1 nav navbar-nav navbar-right ">
-                            <li class="active"><a href="~/Home/index">صفحه اصلی</a></li>
-                            <li><a href="~/Home/About">درباره ما</a></li>
-                            <li><a href="~/Project/Showproject">پروژه ها</a></li>
-                            <li><a href="~/Project/Show">گالری تصاویر</a></li>
-                            <li><a href="~/Home/Ghavanin">قوانین و مقررات</a></li>
+                            <li class="active">
+                                <a href="~/">صفحه اصلی</a>
+                            </li>
+                            <li>
+                                <a href="~/Home/About">درباره ما</a>
+                            </li>
+                            <li>
+                                <a href="~/Project/Showproject">پروژه ها</a>
+                            </li>
+                            <li>
+                                <a href="~/Project/Show">گالری تصاویر</a>
+                            </li>
+                            <li>
+                                <a href="~/Home/Ghavanin">قوانین و مقررات</a>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-angle-down"></i> مدیریت سایت</a>
                                 <ul class="dropdown-menu" style="direction:rtl;text-align:right;">
-                                    <li><a href="~/Member/Login">ورود به سایت</a></li>
+                                    <li>
+                                        <a href="~/Member/Login">ورود به سایت</a>
+                                    </li>
                                     @if (Request.IsAuthenticated)
                                     {
-                                        <li><a href="~/Member/ChangePassword">تغییر رمز عبور</a></li>
-                                        <li><a href="~/Admin/Banner_Add">اضافه کردن بنر</a></li>
-                                        <li><a href="~/Project/Addproject">ثبت پروژه</a></li>
-                                        <li><a href="~/Project/AddGallary">ثبت تصاویر</a></li>
+                                        <li>
+                                            <a href="~/Member/ChangePassword">تغییر رمز عبور</a>
+                                        </li>
+                                        <li>
+                                            <a href="~/Admin/Add">اضافه کردن بنر</a>
+                                        </li>
+                                        <li>
+                                            <a href="~/Project/Addproject">ثبت پروژه</a>
+                                        </li>
+                                        <li>
+                                            <a href="~/Project/AddGallary">ثبت تصاویر</a>
+                                        </li>
                                     }
-                                    <li><a href="~/project/Listproject">لیست پروژه</a></li>
+                                    <li>
+                                        <a href="~/project/Listproject">لیست پروژه</a>
+                                    </li>
                                     <li class="divider"></li>
-                                    <li><a href="#">خبرنامه</a></li>
-                                    <li><a href="#">تیم اجرایی</a></li>
+                                    <li>
+                                        <a href="#">خبرنامه</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">تیم اجرایی</a>
+                                    </li>
                                 </ul>
                             </li>
-
-                            <li class="scroll"><a href="~/Home/Contact">تماس با ما</a></li>
+                            <li class="scroll">
+                                <a href="~/Home/Contact">تماس با ما</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -141,25 +159,37 @@
                                     چالوس ، خیابان امام خمینی ، کوچه طاولی ، ساختمان میلاد ، طبقه 1 واحد شرقی
                                 </address>
                                 <p>
-                                    <i class="icon-phone"></i> تلفن: 52219609      فکس: 52221410  <br> مدیر اجرایی:09115248404  <br>
+                                    <i class="icon-phone"></i> تلفن: 52219609      فکس: 52221410
+                                    <br> مدیر اجرایی:09115248404
+                                    <br>
                                     <i class="font-icon-email_2" style="font-family:Arial;"></i> Amniyat_sazan_bartar_chalous@yahoo.com
                                 </p>
-
                             </div>
                         </div>
                         <div class="col-sm-4 col-lg-4">
                             <div class="widget">
                                 <h4>فعالیت های موسسه</h4>
                                 <ul style="list-style-type:none;">
-                                    <li><a href="#">اجرای احکام دادگستری در معیت ضابطین قضایی انتظامی</a></li>
-                                    <li><a href="#">امنیت شهرک ها و مجتمع ها</a></li>
-                                    <li><a href="#">جلسات اداری و سازمانی</a></li>
-                                    <li><a href="#">امنیت مراکز خرید</a></li>
-                                    <li><a href="#">امنیت مراکز درمانی</a></li>
-                                    <li><a href="#">نظارت پارکینگ ها </a></li>
+                                    <li>
+                                        <a href="#">اجرای احکام دادگستری در معیت ضابطین قضایی انتظامی</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">امنیت شهرک ها و مجتمع ها</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">جلسات اداری و سازمانی</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">امنیت مراکز خرید</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">امنیت مراکز درمانی</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">نظارت پارکینگ ها </a>
+                                    </li>
                                 </ul>
                             </div>
-
                         </div>
                         <div class="col-sm-4 col-lg-4">
                             <div class="widget">
@@ -191,7 +221,6 @@
                 </div>
             </div>
         </section>
-
         <div class="modal fade" id="blog-detail" tabindex="-1" role="dialog" aria-hidden="true">
             @*<div class="modal-dialog">
                     <div class="modal-content">
@@ -216,7 +245,10 @@
         <footer id="footer">
             <div class="container">
                 <div class="text-center">
-                    <p style="font-family:Arial;">Copyright &copy; 2017 - <a href="http://www.p30max.com/">Design Majid Abasi</a> | All Rights Reserved</p>
+                    <p style="font-family:Arial;">
+                        Copyright &copy; 2017 -
+                        <a href="http://www.p30max.com/">Design Majid Abasi</a> | All Rights Reserved
+                    </p>
                 </div>
             </div>
         </footer> <!--/#footer-->
@@ -225,14 +257,11 @@
     <div id="div_loading" style="display: none; position: fixed; z-index: 1000;
  background-image: url('../../images/prettyPhoto/light_square/loader.gif');
   background-color: #000000; opacity: 0.4; background-repeat: no-repeat; background-position: center; left: 0; bottom: 0; right: 0; top: 0; ">
-
         @*<img src="~/wwwroot/img/cbp-loading.gif" />*@
         @*<p>  Please Wait..</p>*@
     </div>
-
     @*<script src="~/Scripts/jquery-3.1.1.min.js"></script>*@
     @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
-
     <script type="text/javascript" src="~/Scripts/jquery.js"></script>
     <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/Scripts/smoothscroll.js"></script>

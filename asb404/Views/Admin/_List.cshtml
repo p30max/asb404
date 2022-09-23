@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Asb404.Models.Banner>
+<table class="table">
+    <tr>
+        <th style="text-align:right;">
+            @Html.DisplayNameFor(model => model.Header)
+        </th>
+        <th style="text-align:right;">
+            @Html.DisplayNameFor(model => model.Ptext)
+        </th>
+        <th style="text-align:right;">
+            @Html.DisplayNameFor(model => model.Link)
+        </th>
+        <th style="text-align:right;">
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Header)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ptext)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Link)
+            </td>
+            <td>
+                <img src="@item.Image" width="120" height="52" />
+            </td>
+            <td>
+                @*  @Html.ActionLink("ویرایش", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+                @Html.ActionLink("حذف", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

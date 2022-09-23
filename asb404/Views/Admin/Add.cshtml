@@ -1,7 +1,5 @@
 ﻿@model Asb404.Models.Banner
 @{
-    
-
     ViewBag.Title = "Baner_Add";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
@@ -9,17 +7,12 @@
     <div class="container animated fadeInDown">
         <div class="row">
             <div class="panel-body  col-md-6 col-md-offset-3  ">
-
                 <div class="farsi-Yekan-1 text-center Panel-google-White" style="padding:20px 20px 20px 20px; direction:rtl;">
                     <h3 class="text-center">اضافه کردن عکس به پروژه</h3>
-
                     <div id="msg" class="farsi-Yekan Label-google" style="height:10px;color:red;">@ViewBag.msg</div>
-
-
                     @using (Html.BeginForm("Banner_Add", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
-
                         <div class="form-horizontal">
                             <h4>Banner</h4>
                             <hr />
@@ -31,7 +24,6 @@
                                     @Html.ValidationMessageFor(model => model.Header, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Ptext, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
@@ -39,7 +31,6 @@
                                     @Html.ValidationMessageFor(model => model.Ptext, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Link, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
@@ -47,7 +38,6 @@
                                     @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
@@ -55,7 +45,6 @@
                                     @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <input type="submit" value="تائید" class="btn btn-default col-md-9 col-md-offset-3" style="background-color:#fc7700;color:white;" />
@@ -63,16 +52,15 @@
                             </div>
                         </div>
                     }
-
-                    <div>
-                        @Html.ActionLink("Back to List", "Index")
-                    </div>
-
                 </div>
 
             </div>
-        
-            <div style="direction:rtl;">  @{ Html.RenderAction("_Banner_List", "Admin", new { id = 0 });} 
-                </div>
+            <div style="direction:rtl;">
+                @{ Html.RenderAction("_List", "Admin", new { id = 0 });}
             </div>
-        </section>
+            <div>
+                @Html.ActionLink("صفحه اصلی", "Index", "Home")
+            </div>
+        </div>
+    </div>
+</section>
