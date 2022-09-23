@@ -658,10 +658,10 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Project\Show.cshtml" />
-    <Content Include="Views\Project\_Show.cshtml" />
-    <Content Include="Views\Project\AddGallary.cshtml" />
-    <Content Include="Views\Project\DetailProject.cshtml" />
+    <Content Include="Views\Gallary\List.cshtml" />
+    <Content Include="Views\Gallary\_List.cshtml" />
+    <Content Include="Views\Gallary\Add.cshtml" />
+    <Content Include="Views\Project\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -697,11 +697,11 @@
     <Content Include="Views\Home\Ghavanin.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
-    <Content Include="Views\Project\AddProject.cshtml" />
-    <Content Include="Views\Project\EditProject.cshtml" />
+    <None Include="Views\Project\Add.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
     <Content Include="Views\Project\listProject.cshtml" />
-    <Content Include="Views\Project\Showproject.cshtml" />
-    <Content Include="Views\Project\_Showproject.cshtml" />
+    <Content Include="Views\Project\List.cshtml" />
+    <Content Include="Views\Project\_List.cshtml" />
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Member\ChangePassword.cshtml" />
     <Content Include="Views\Admin\Add.cshtml" />
@@ -727,7 +727,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Gallary\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

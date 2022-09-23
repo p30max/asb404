@@ -125,12 +125,12 @@ namespace Asb404.Controllers
 
 
 
-        public ActionResult Show()
+        public ActionResult List()
         {
             return View();
         }
 
-        public ActionResult _Show(int? id, int? page)
+        public ActionResult _List(int? id, int? page)
         {
             List<Gallary> Gl = new List<Gallary>();
             if (id != null)
