@@ -25,7 +25,7 @@
 
                     <div id="msg" class="farsi-Yekan Label-google" style="height:10px;color:red;">@ViewBag.msg</div>
 
-                    @using (Html.BeginForm("Addgallary", "Project", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("Add", "Gallary", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
 

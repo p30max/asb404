@@ -658,7 +658,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Gallary\List.cshtml" />
+    <Content Include="Views\Gallary\Index.cshtml" />
     <Content Include="Views\Gallary\_List.cshtml" />
     <Content Include="Views\Gallary\Add.cshtml" />
     <Content Include="Views\Project\Detail.cshtml" />
@@ -699,8 +699,8 @@
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <None Include="Views\Project\Add.cshtml" />
     <Content Include="Views\Project\Edit.cshtml" />
-    <Content Include="Views\Project\listProject.cshtml" />
-    <Content Include="Views\Project\List.cshtml" />
+    <None Include="Views\Project\List.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Project\_List.cshtml" />
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Member\ChangePassword.cshtml" />

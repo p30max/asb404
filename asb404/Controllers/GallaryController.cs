@@ -149,9 +149,20 @@ namespace Asb404.Controllers
 
 
         // GET: Gallary
-        public ActionResult Index()
+        public ActionResult Index(int? id, int? page)
         {
-            return View();
+            List<Gallary> Gl = new List<Gallary>();
+            if (id != null)
+            {
+                Gl = _db.Gallaries.Where(x => x.idx == id).ToList();
+
+            }
+            else
+            {
+                Gl = _db.Gallaries.ToList();
+            }
+            
+            return View(Gl);
         }
     }
 }

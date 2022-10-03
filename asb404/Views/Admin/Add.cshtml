@@ -10,7 +10,7 @@
                 <div class="farsi-Yekan-1 text-center Panel-google-White" style="padding:20px 20px 20px 20px; direction:rtl;">
                     <h3 class="text-center">اضافه کردن عکس به پروژه</h3>
                     <div id="msg" class="farsi-Yekan Label-google" style="height:10px;color:red;">@ViewBag.msg</div>
-                    @using (Html.BeginForm("Banner_Add", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("Add", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
                         <div class="form-horizontal">

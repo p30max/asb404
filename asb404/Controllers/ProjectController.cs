@@ -119,21 +119,21 @@ namespace Asb404.Controllers
             _db.SaveChanges();
             return RedirectToAction("ListProject");
         }
-        public ActionResult Showproject()
+        public ActionResult Index()
         {
             return View();
         }
-        public ActionResult _Showproject()
+        public ActionResult _List()
         {
-            return PartialView(_db.Project);
+            return PartialView(_db.Project.ToList());
         }
-        public ActionResult DetailProject(int? id)
+        public ActionResult Detail(int? id)
         {
             ViewBag.id = id;
             return PartialView();
         }
 
-        public ActionResult _list()
+        public ActionResult list()
         {
             var Model = _db.Project.OrderByDescending(x => x.Id).ToList().OrderBy(c => c.Customer);
             //var pageNumber = page ?? 1;

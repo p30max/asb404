@@ -20,7 +20,7 @@
                             <h2 class="text-center">ویرایش پروژه</h2>
 
                             <div id="msg" class="farsi-Yekan Label-google" style="height:10px;color:red;">@ViewBag.msg</div>
-                            @using (Html.BeginForm("EditProject", "Project", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            @using (Html.BeginForm("Edit", "Project", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
                                 @Html.AntiForgeryToken()
 

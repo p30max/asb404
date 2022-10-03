@@ -1,9 +1,81 @@
-﻿
+﻿@model IEnumerable<Asb404.Models.Project>
+
 @{
-    ViewBag.Title = "نمایش پروژه ها امنیت سازان برتر";
+    ViewBag.Title = "لیست پروژه های اجرایی";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
+    int r= 0;
 }
+<div id="blog" style="text-align:center;" >
+    <h2 class="title-one farsi-Yekan-h2 text-center">موسسه حفاظتی مراقبتی امنیت سازان برترچالوس</h2>
+   
+
+    <div class="container animated fadeInDown" >
+        <div class="row col-md-10 col-md-offset-1">
+          
+     
+            <p class="text-left">
+                @Html.ActionLink("اضافه کردن پروژه", "Addproject")
+            </p>
+            <table class="table table-bordered table-hover table-condensed table-responsive" style="direction:rtl;text-align:right;">
+                <tr>
+                    <th style="text-align:right;">
+                       ردیف
+                    </th>
+                    <th style="text-align:right;">
+                        @Html.DisplayNameFor(model => model.Customer)
+                    </th>
+                    <th style="text-align:right;">
+                        @Html.DisplayNameFor(model => model.Subject)
+                    </th>
+                    <th style="text-align:right;">
+                   قرارداد-وضعیت
+                    </th>
 
 
+                    <th style="text-align:right;">
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
 
-    @{Html.RenderAction("_Showproject", "project");}
+@if (Request.IsAuthenticated)
+{
+                    <th class="text-right">عملیات</th>
+}
+                </tr>
+
+                @foreach (var item in Model)
+            {
+                r = r + 1;
+                    <tr>
+                        <td>
+                            @r
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Customer)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subject)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NoProject)-@Html.DisplayFor(modelItem => item.noprivate)
+                        </td>
+
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+
+@if (Request.IsAuthenticated)
+{
+                        <td>
+                            @Html.ActionLink("ویرایش", "Editproject", new { id = item.Id }) |
+                            @Html.ActionLink("گالری ", "AddGallary", new { id = item.Id }) |
+                            @Html.ActionLink("حذف", "DeleteProject", new { id = item.Id })
+                        </td>
+}
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>

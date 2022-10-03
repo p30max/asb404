@@ -16,31 +16,31 @@
         {
 
             <div class="col-md-4 animated fadeInDown">
-                <div class="single-blog farsi-Yekan-1" style="direction:rtl;">
+                <div class="single-blog farsi-Yekan-1" style="direction:rtl;max-height:500px;">
                     @if (item.image != null)
                     {
-                    <img src="@item.image" class="img-responsive"  alt="" />
+                        <img src="@item.image" class="img-responsive"  style="height: 200px;" />
                     }
                     else
                     {
 
-                        <img id="imgt" src="~/images/image.jpg" class="img-responsive"  onerror="if (this.src != '~/images/image.jpg') this.src = '~/images/image.jpg'"/>
+                        <img id="imgt" src="~/images/image.jpg" class="img-responsive" onerror="if (this.src != '~/images/image.jpg') this.src = '~/images/image.jpg' " />
                     }
                     <h2 class="farsi-Yekan-h1" style="overflow-y:hidden;max-height:25px;">@item.Customer</h2>
                     <div class="blog-content">
                         <p style="overflow-y:hidden;max-height:20px;">@item.Subject</p>
-                    
+
                         <p>نوع قرارداد : @item.NoProject - @item.noprivate</p>
-                        
+
                     </div>
                     @*<ul class="post-meta">
                         <li><i class="fa fa-pencil-square-o" style="direction:rtl;"></i><strong> Posted By:</strong> John</li>
                         <li><i class="fa fa-clock-o" style="direction:rtl;"></i><strong> Posted On:</strong> Apr 15 2014</li>
                     </ul>*@
-                   
-                    @Ajax.ActionLink("درباره پروژه", "DetailProject", "Project", new { id = item.Id }, new AjaxOptions { HttpMethod = "get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "blog-detail", LoadingElementId = "div_loading", OnSuccess = "", OnBegin = "" }, new { data_toggle = "modal", data_target = "#blog-detail", @class = "btn btn-primary" })
+
+                    @Ajax.ActionLink("درباره پروژه", "Detail", "Project", new { id = item.Id }, new AjaxOptions { HttpMethod = "get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "blog-detail", LoadingElementId = "div_loading", OnSuccess = "", OnBegin = "" }, new { data_toggle = "modal", data_target = "#blog-detail", @class = "btn btn-primary" })
                     @*<a href="" class="btn btn-primary" data-toggle="modal" data-target="#blog-detail">درباره پروژه</a>*@
-                    <a href="~/Project/ShowGallary/@item.Id" class="btn btn-primary" style="float:left;" data-target="#blog-detail">گالری تصاویر</a>
+                    <a href="~/Gallary/Index/@item.Id" class="btn btn-primary" style="float:left;" data-target="#blog-detail">گالری تصاویر</a>
 
                 </div>
                 @*<div class="modal fade" id="blog-detail" tabindex="-1" role="dialog" aria-hidden="true">
@@ -64,7 +64,7 @@
                 </div>*@
             </div>
         }
-        </div>
+    </div>
     
 </section>
 @*<section id="blog">
