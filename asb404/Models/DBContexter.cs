@@ -13,5 +13,6 @@ namespace Asb404.Models
         public virtual  DbSet<Gallary> Gallaries { get; set; }
         public virtual DbSet<Subscribe> Subscribes { get; set; }
         public virtual DbSet<Banner> Banner { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
     }
 }
