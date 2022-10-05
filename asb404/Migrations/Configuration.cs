@@ -1,5 +1,6 @@
 ﻿namespace Asb404.Migrations
 {
+    using Asb404.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -14,6 +15,7 @@
 
         protected override void Seed(Asb404.Models.DBContexter context)
         {
+            context.Groups.AddOrUpdate(x => x.Id, new Group() { Name = "طرح نظارتی" },new Group() { Name="اجرای احکام"});
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
