@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Asb404.Models.Project>
-
+@using Asb404.Models;
 @{
+    DBContexter _db = new DBContexter();
     ViewBag.Title = "لیست پروژه های اجرایی";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
     int r = 0;
@@ -8,7 +9,7 @@
 <div id="blog" style="text-align:center;">
     <h2 class="title-one farsi-Yekan-h2 text-center">موسسه حفاظتی مراقبتی امنیت سازان برترچالوس</h2>
     <div class="container animated fadeInDown">
-        <div class="row col-md-10 col-md-offset-1">
+        <div class="row col-md-12">
             <p class="text-left">
                 @Html.ActionLink("اضافه کردن پروژه", "Add")
             </p>
@@ -16,6 +17,9 @@
                 <tr>
                     <th style="text-align:right;">
                         ردیف
+                    </th>
+                    <th style="text-align:right;">
+                        @Html.DisplayNameFor(model => model.GroupId)
                     </th>
                     <th style="text-align:right;">
                         @Html.DisplayNameFor(model => model.Customer)
@@ -43,6 +47,9 @@
                             @r
                         </td>
                         <td>
+                           @_db.Groups.Find(item.GroupId).Name
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Customer)
                         </td>
                         <td>
@@ -57,9 +64,9 @@
                         @if (Request.IsAuthenticated)
                         {
                             <td>
-                                @Html.ActionLink("ویرایش", "Edit", "Project", new { id = item.Id }) |
+                                @Html.ActionLink("ویرایش", "Edit",  new { id = item.Id }) |
                                 @Html.ActionLink("گالری ", "Add", new { id = item.Id }) |
-                                @Html.ActionLink("حذف", "Delete", "Project", new { id = item.Id })
+                                @Html.ActionLink("حذف", "Delete", new { id = item.Id })
                             </td>
                         }
                     </tr>

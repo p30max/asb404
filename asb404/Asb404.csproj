@@ -681,6 +681,10 @@
     <Compile Include="Migrations\202210041016553_jhjh.designer.cs">
       <DependentUpon>202210041016553_jhjh.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202210060656170_sfkdf.cs" />
+    <Compile Include="Migrations\202210060656170_sfkdf.designer.cs">
+      <DependentUpon>202210060656170_sfkdf.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Banner.cs" />
     <Compile Include="Models\DBContexter.cs" />
@@ -745,6 +749,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202210041016553_jhjh.resx">
       <DependentUpon>202210041016553_jhjh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210060656170_sfkdf.resx">
+      <DependentUpon>202210060656170_sfkdf.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

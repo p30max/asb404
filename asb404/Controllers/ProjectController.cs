@@ -119,13 +119,13 @@ namespace Asb404.Controllers
             _db.SaveChanges();
             return RedirectToAction("ListProject");
         }
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
             return View();
         }
-        public ActionResult _List()
+        public ActionResult _List(int id)
         {
-            return PartialView(_db.Project.ToList());
+            return PartialView(_db.Project.Where(x=>x.GroupId==id).ToList());
         }
         public ActionResult Detail(int? id)
         {
@@ -145,7 +145,7 @@ namespace Asb404.Controllers
         }
         [HttpGet]
         [Authorize]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
             return View(_db.Project.Find(id));
         }

@@ -15,11 +15,14 @@
 
         protected override void Seed(Asb404.Models.DBContexter context)
         {
+            if(!context.Groups.Any())
+            { 
             context.Groups.AddOrUpdate(x => x.Id, new Group() { Name = "طرح نظارتی" },new Group() { Name="اجرای احکام"});
-            //  This method will be called after migrating to the latest version.
+                //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
+                //  You can use the DbSet<T>.AddOrUpdate() helper extension method
+                //  to avoid creating duplicate seed data.
+            }
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿@model Asb404.Models.Project
+@using Asb404.Models;
 @{
+    DBContexter _db = new DBContexter();
     ViewBag.Title = "اضافه کردن پروژه";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
     var noproject_list = new List<SelectListItem> { new SelectListItem { Text = "دائمی" }, new SelectListItem { Text = "فصلی" } };
     var noPrivate_list = new List<SelectListItem>{ new SelectListItem { Text = "دولتی" }, new SelectListItem { Text = "خصوصی" } };
-    var noPrivate_list = new List<slec>{ new SelectListItem { Text = "دولتی" }, new SelectListItem { Text = "خصوصی" } };
+    var Group_List = new SelectList(_db.Groups.ToList(),"Id","Name");
     }
     <section id="blog">
         <div class="container animated fadeInDown">
@@ -30,7 +32,7 @@
                             @Html.LabelFor(model => model.GroupId, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
                                 @Html.ValidationMessageFor(model => model.GroupId, "", new { @class = "text-danger" })
-                                @Html.DropDownListFor(model => model.GroupId, noproject_list, "",new { @class = "form-control", placeholder = "موضوع قرارداد را وارد کنید"  })
+                                @Html.DropDownListFor(model => model.GroupId, Group_List, "نوع گروه پروژه را انتخاب کنید",new { @class = "form-control", placeholder = "گروه پروژه را مشخص کنید"  })
                             </div>
                         </div>
                         <div class="form-group">

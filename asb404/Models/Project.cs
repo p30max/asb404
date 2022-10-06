@@ -14,7 +14,9 @@ namespace Asb404.Models
         [Required(ErrorMessage = "نام مشتری را وارد کنید")]
         [Display(Name = "نام مشتری")]
         public virtual string Customer { get; set; }
-        public virtual int GroupId { set; get; }
+        [Required(ErrorMessage ="گروه را انتخاب کنید")]
+        [Display(Name = "گروه مشتری")]
+        public virtual int GroupId { set; get; } = 0;
         [StringLength(100, MinimumLength = 3, ErrorMessage = "Invalid")]
         [Required(ErrorMessage = "موضوع پروژه را مشخص کنید")]
         [Display(Name = "موضوع پروژه")]

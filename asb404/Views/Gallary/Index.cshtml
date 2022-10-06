@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Asb404.Models.Gallary>
 @using Asb404.Models
+@using PagedList;
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "گالری تصاویر امنیت سازان برتر";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
@@ -50,7 +52,7 @@
                                 }
                                 <a href="@Website"><i class="fa fa-link"></i></a>
 
-                                <a href="@item.image" data-gallery="prettyPhoto"><i class="fa fa-search-plus" ></i></a>
+                                <a href="@item.image" data-gallery="prettyPhoto"><i class="fa fa-search-plus"></i></a>
                                 @if (Request.IsAuthenticated)
                                 {
                                     <a href="~/project/DeleteGallary/@item.id"><i class="fa fa-minus"></i></a>
@@ -76,18 +78,9 @@
             DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
             DisplayLinkToNextPage = PagedListDisplayMode.Always,
             MaximumPageNumbersToDisplay = 10
-            }))
-                @Html.PagedListPager((IPagedList)Model, page => Url.Action("_showGallary", new
-                {
-                    page,
-                    LiElementClasses = new List<string> { "myClass", "yourClass" },
-                //The following properties are the same as OnlyShowFivePagesAtATime
-                DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
-                DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
-                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-                DisplayLinkToNextPage = PagedListDisplayMode.Always,
-                MaximumPageNumbersToDisplay = 10
-            }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "get", UpdateTargetId = "PanelPage", LoadingElementId = "div_loading", InsertionMode = InsertionMode.Replace }))*@
+            }))*@
+
+
 
     </section> <!--/#portfolio-->
 
