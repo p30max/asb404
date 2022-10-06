@@ -5,76 +5,65 @@
 @{
     DBContexter _db = new DBContexter();
 }
+<link href="~/Content/animate.min.css" rel="stylesheet" />
+<link href="~/css/bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/prettyPhoto.css" rel="stylesheet">
+<link href="~/Content/font-awesome.min.css" rel="stylesheet">
+<link href="~/Content/animate.css" rel="stylesheet">
+<link href="~/Content/main.css" rel="stylesheet">
+<link href="~/Content/responsive.css" rel="stylesheet">
+<link href="~/Content/FontFarsi.css" rel="stylesheet" />
 
 
-<section id="portfolio">
-    <div class="container animated fadeInDown">
-        <div class="row text-center">
-            <div class="col-sm-8 col-sm-offset-2">
-                <h2 class="title-one farsi-Yekan-h2">گالری تصاویر نمونه پروژه ها</h2>
-                @*<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit.</p>*@
-            </div>
-        </div>
-        @*<ul class="portfolio-filter text-center">
-                <li><a class="btn btn-default active" href="#" data-filter="*">All</a></li>
-                <li><a class="btn btn-default" href="#" data-filter=".html">Html</a></li>
-                <li><a class="btn btn-default" href="#" data-filter=".wordpress">Wordpress</a></li>
-                <li><a class="btn btn-default" href="#" data-filter=".joomla">Joomla</a></li>
-                <li><a class="btn btn-default" href="#" data-filter=".megento">Megento</a></li>
-            </ul>*@<!--/#portfolio-filter-->
 
-    <div class="portfolio-items">
-        @foreach (var item in Model)
+<div class="portfolio-items">
+    @foreach (var item in Model)
+    {
+        string cs = "", Website = "";
+        var mm = _db.Project.Find(item.idx);
+        if (mm != null)
         {
-            string cs = "", Website = "";
-            var mm = _db.Project.Find(item.idx);
-            if (mm != null)
-            {
-                cs = _db.Project.Find(item.idx).Customer;
-                Website = _db.Project.Find(item.idx).Website;
-            }
+            cs = _db.Project.Find(item.idx).Customer;
+            Website = _db.Project.Find(item.idx).Website;
+        }
 
-            <div class="col-sm-3 col-xs-12 portfolio-item html">
-                <div class="view efffect">
+        <div class="col-sm-3 col-xs-12 portfolio-item html">
+            <div class="view efffect">
 
-                    <div class="portfolio-image">
-                        <img src="@item.image" alt="" style="height:200px;width:300px;">
+                <div class="portfolio-image">
+                    <img src="@item.image" alt="" style="height:200px;width:300px;">
 
-                    </div>
-                    <div class="mask text-center">
-                        <h3>@cs</h3>
-                        <h4>@item.Discription.ToString()</h4>
-                        @if (item.Date != null && String.IsNullOrEmpty(item.Date) == false)
-                        {
-                            <h4>@item.Date.ToString()</h4>
-                        }
-                        <a href="@Website"><i class="fa fa-link"></i></a>
-
-                        <a href="@item.image" data-gallery="prettyPhoto"><i class="fa fa-search-plus"></i></a>
-                        @if (Request.IsAuthenticated)
-                        {
-                            <a href="~/project/DeleteGallary/@item.id"><i class="fa fa-minus"></i></a>
-
-
-                        }
-                    </div>
                 </div>
+                <div class="mask text-center">
+                    <h3>@cs</h3>
+                    <h4>@item.Discription.ToString()</h4>
+                    @if (item.Date != null && String.IsNullOrEmpty(item.Date) == false)
+                    {
+                        <h4>@item.Date.ToString()</h4>
+                    }
+                    <a href="@Website"><i class="fa fa-link"></i></a>
 
+                    <a href="@item.image" data-gallery="prettyPhoto"><i class="fa fa-search-plus"></i></a>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <a href="~/project/DeleteGallary/@item.id"><i class="fa fa-minus"></i></a>
+
+
+                    }
+                </div>
             </div>
 
-        }
-        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new
-{
-page,
-searchBy = Request.QueryString["searchBy"],
-search = Request.QueryString["search"]
-}),
-new PagedListRenderOptions()
-{
-Display = PagedListDisplayMode.IfNeeded,
-DisplayItemSliceAndTotal = true
-})
-    </div>
-    </div>
+        </div>
 
-</section> <!--/#portfolio-->
+    }
+
+</div>
+<script type="text/javascript" src="~/Scripts/jquery.js"></script>
+<script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/Scripts/smoothscroll.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.isotope.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.parallax.js"></script>
+<script type="text/javascript" src="~/Scripts/main.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("_List", new { page, @Productid = 2, Text = ViewBag.text }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "get", UpdateTargetId = "targetpanel", InsertionMode = InsertionMode.Replace, LoadingElementId = "div_loading" }))

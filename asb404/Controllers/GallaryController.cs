@@ -143,7 +143,7 @@ namespace Asb404.Controllers
                 Gl = _db.Gallaries.ToList();
             }
             var pagenumber = page ?? 1;
-            var Apage = Gl.ToPagedList(pagenumber, 3000);
+            var Apage = Gl.ToPagedList(pagenumber, 20);
             return PartialView(Apage);
         }
 
