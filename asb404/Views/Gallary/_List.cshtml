@@ -5,14 +5,14 @@
 @{
     DBContexter _db = new DBContexter();
 }
-<link href="~/Content/animate.min.css" rel="stylesheet" />
-<link href="~/css/bootstrap.min.css" rel="stylesheet">
+@*<link href="~/Content/animate.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">*@
 <link href="~/Content/prettyPhoto.css" rel="stylesheet">
-<link href="~/Content/font-awesome.min.css" rel="stylesheet">
-<link href="~/Content/animate.css" rel="stylesheet">
-<link href="~/Content/main.css" rel="stylesheet">
-<link href="~/Content/responsive.css" rel="stylesheet">
-<link href="~/Content/FontFarsi.css" rel="stylesheet" />
+@*<link href="~/Content/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/main.css" rel="stylesheet">
+    <link href="~/Content/responsive.css" rel="stylesheet">
+    <link href="~/Content/FontFarsi.css" rel="stylesheet" />*@
 
 
 
@@ -66,4 +66,22 @@
 <script type="text/javascript" src="~/Scripts/jquery.parallax.js"></script>
 <script type="text/javascript" src="~/Scripts/main.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-@Html.PagedListPager((IPagedList)Model, page => Url.Action("_List", new { page, @Productid = 2, Text = ViewBag.text }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "get", UpdateTargetId = "targetpanel", InsertionMode = InsertionMode.Replace, LoadingElementId = "div_loading" }))
+
+<br />
+<div>
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("_List", new
+{
+   page,
+   LiElementClasses = new List<string>
+{ "myClass", "yourClass" },
+   //The following properties are the same as OnlyShowFivePagesAtATime
+   DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+   DisplayLinkToLastPage = PagedListDisplayMode.Always,
+   DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+   DisplayLinkToNextPage = PagedListDisplayMode.Always,
+   MaximumPageNumbersToDisplay = 5
+,
+        @Productid = 2,
+        Text = ViewBag.text
+    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "get", UpdateTargetId = "targetpanel", InsertionMode = InsertionMode.Replace, LoadingElementId = "div_loading" }))
+</div>
