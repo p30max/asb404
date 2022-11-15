@@ -135,7 +135,7 @@ namespace Asb404.Controllers
 
         public ActionResult list()
         {
-            var Model = _db.Project.OrderByDescending(x => x.Id).ToList().OrderBy(c => c.Customer);
+            var Model = _db.Project.OrderBy(c => c.Customer).ToList();
             //var pageNumber = page ?? 1;
             //var Apage = st.ToPagedList(pageNumber, 5);
             //ViewBag.Apage = st.ToPagedList(pageNumber, 5);
