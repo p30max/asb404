@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 
-namespace ASB404
+namespace Asb404
 {
     public class MvcApplication : System.Web.HttpApplication
     {

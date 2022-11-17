@@ -1,46 +1,120 @@
-﻿
+﻿@using Asb404.Models
 @{
     ViewBag.Title = " سایت رسمی امنیت سازان برتر چالوس";
     Layout = "~/Views/shared/_LayoutPage.cshtml";
+    DBContexter _db = new DBContexter();
+    int c = 0;
 }
 <section id="home">
     <div class="home-pattern"></div>
     <div id="main-carousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#main-carousel" data-slide-to="1"></li>
-            <li data-target="#main-carousel" data-slide-to="2"></li>
+            @for (int i = 0; i < _db.Banner.Count(); i++)
+            {
+                if (i == 0)
+                {
+                    <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
+                }
+                <li data-target="#main-carousel" data-slide-to="i"></li>
+                @*<li data-target="#main-carousel" data-slide-to="2"></li>*@
+               
+            }
         </ol><!--/.carousel-indicators-->
         <div class="carousel-inner">
-            <div class="item active" style="background-image: url(../../images/slider/slide3.jpg)">
-                <div class="carousel-caption">
-                    <div>
-                        <h2 class="heading animated bounceInDown">Safe security in City</h2>
-                        <p class="animated bounceInUp" style="font-size:38px;">اقتدار ، امنیت ، آرامش</p>
-                        <a class="btn btn-default slider-btn animated fadeIn" href="~/project/Showproject">نمونه پروژه ها</a>
+            @if (_db.Banner.Count() > 2)
+            {
+                int i = 0;
+                foreach (var item in _db.Banner.ToList())
+                {
+                    if (i == 0)
+                    {
+                        <div class="item active" style="background-image: url(../../@item.Image)">
+                            <div class="carousel-caption">
+                                <div>
+                                    <h2 class="heading animated bounceInDown">@item.Header</h2>
+                                    <p class="animated bounceInUp" style="font-size:38px;">@item.Ptext</p>
+                                    <a class="btn btn-default slider-btn animated fadeIn" href="~/Project/Index/1">نمونه پروژه ها</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="item" style="background-image: url(../../@item.Image)">
+                        <div class="carousel-caption">
+                            <div>
+                                <h2 class="heading animated bounceInDown">@item.Header</h2>
+                                <p class="animated bounceInUp" style="font-size:38px;">@item.Ptext</p>
+                                <a class="btn btn-default slider-btn animated fadeIn" href="~/Project/Index/1">نمونه پروژه ها</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="item" style="background-image: url(../../images/slider/slide2.jpg)">
-                <div class="carousel-caption">
-                    <div>
-                        <h2 class="heading animated bounceInDown">Security in Store Center</h2>
-                        <p class="animated bounceInUp" style="font-size:38px;">امنیت خرید شما در مراکز خرید</p>
-                        <a class="btn btn-default slider-btn animated fadeIn" href="~/project/Showproject">نمونه پروژه ها</a>
-                    </div>
-                </div>
-            </div>
-            <div class="item" style="background-image: url(../../images/slider/slide1.jpg)">
-                <div class="carousel-caption">
-                    <div>
-                        <h2 class="farsi-Yekan-1 heading animated bounceInRight">Safe Hospital</h2>
-                        <p class="animated bounceInLeft" style="font-size:38px;">امنیت مراکز درمانی و پزشکی</p>
-                        <a class="btn btn-default slider-btn animated bounceInUp" href="~/project/Showproject">نمونه پروژه ها</a>
-                    </div>
-                </div>
-            </div>
-        </div><!--/.carousel-inner-->
+                    i++;
+                }
+                @*<div class="item" style="background-image: url(../../images/slider/slide2.jpg)">
+                        <div class="carousel-caption">
+                            <div>
+                                <h2 class="heading animated bounceInDown">Security in Store Center</h2>
+                                <p class="animated bounceInUp" style="font-size:38px;">امنیت خرید شما در مراکز خرید</p>
+                                <a class="btn btn-default slider-btn animated fadeIn" href="~/project/Showproject">نمونه پروژه ها</a>
+                            </div>
+                        </div>
+                    </div>*@
+                @*<div class="item" style="background-image: url(../../images/slider/slide1.jpg)">
+                        <div class="carousel-caption">
+                            <div>
+                                <h2 class="farsi-Yekan-1 heading animated bounceInRight">Safe Hospital</h2>
+                                <p class="animated bounceInLeft" style="font-size:38px;">امنیت مراکز درمانی و پزشکی</p>
+                                <a class="btn btn-default slider-btn animated bounceInUp" href="~/project/Showproject">نمونه پروژه ها</a>
+                            </div>
+                        </div>
+                    </div>*@
+                @*foreach (var item in _db.Banner.Take(3).ToList())
+                    {
+                        <div class="item active" style="background-image: url(../../@item.Image)">
+                            <div class="carousel-caption">
+                                <div>
+                                    <h2 class="heading animated bounceInDown">Safe security in City</h2>
+                                    <p class="animated bounceInUp" style="font-size:38px;">اقتدار ، امنیت ، آرامش</p>
+                                    <a class="btn btn-default slider-btn animated fadeIn" href="~/project/Showproject">نمونه پروژه ها</a>
+                                </div>
+                            </div>
+                        </div>
+                    }*@
 
+
+            }
+            else
+            {
+
+                <div class="item active" style="background-image: url(../../images/slider/slide3.jpg)">
+                    <div class="carousel-caption">
+                        <div>
+                            <h2 class="heading animated bounceInDown">Safe security in City</h2>
+                            <p class="animated bounceInUp" style="font-size:38px;">اقتدار ، امنیت ، آرامش</p>
+                            <a class="btn btn-default slider-btn animated fadeIn" href="~/project/Showproject">نمونه پروژه ها</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url(../../images/slider/slide2.jpg)">
+                    <div class="carousel-caption">
+                        <div>
+                            <h2 class="heading animated bounceInDown">Security in Store Center</h2>
+                            <p class="animated bounceInUp" style="font-size:38px;">امنیت خرید شما در مراکز خرید</p>
+                            <a class="btn btn-default slider-btn animated fadeIn" href="~/project/Showproject">نمونه پروژه ها</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url(../../images/slider/slide1.jpg)">
+                    <div class="carousel-caption">
+                        <div>
+                            <h2 class="farsi-Yekan-1 heading animated bounceInRight">Safe Hospital</h2>
+                            <p class="animated bounceInLeft" style="font-size:38px;">امنیت مراکز درمانی و پزشکی</p>
+                            <a class="btn btn-default slider-btn animated bounceInUp" href="~/project/Showproject">نمونه پروژه ها</a>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div><!--/.carousel-inner-->
         <a class="carousel-left member-carousel-control hidden-xs" href="#main-carousel" data-slide="prev"><i class="fa fa-angle-left"></i></a>
         <a class="carousel-right member-carousel-control hidden-xs" href="#main-carousel" data-slide="next"><i class="fa fa-angle-right"></i></a>
     </div>

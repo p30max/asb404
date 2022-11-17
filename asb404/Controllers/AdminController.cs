@@ -239,10 +239,18 @@ namespace Asb404.Controllers
             return View();
         }
 
-        [HttpDelete]
+        [HttpGet]
         public ActionResult Delete(int? Id)
         {
-            return View();
+            string FullMaph = Request.MapPath(_db.Banner.Find(Id).Image);
+            if(System.IO.File.Exists(FullMaph))
+            {
+                System.IO.File.Delete(FullMaph);
+            }
+            _db.Banner.Remove(_db.Banner.Find(Id));
+            _db.SaveChanges();
+
+            return RedirectToAction("Add","Admin");
         }
     }
 }
