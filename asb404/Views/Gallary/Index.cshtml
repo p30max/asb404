@@ -7,6 +7,14 @@
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
     DBContexter _db = new DBContexter();
 }
+@*<link href="~/Content/animate.min.css" rel="stylesheet" />
+<link href="~/css/bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/prettyPhoto.css" rel="stylesheet">
+<link href="~/Content/font-awesome.min.css" rel="stylesheet">
+<link href="~/Content/animate.css" rel="stylesheet">
+<link href="~/Content/main.css" rel="stylesheet">
+<link href="~/Content/responsive.css" rel="stylesheet">
+<link href="~/Content/FontFarsi.css" rel="stylesheet" />*@
 <div id="PanelPage" style="text-align:center;">
     @*@{ Html.RenderAction("_List", "Gallary");}*@
     <section id="portfolio">
@@ -18,15 +26,15 @@
                 </div>
             </div>
             @*<ul class="portfolio-filter text-center">
-            <li><a class="btn btn-default active" href="#" data-filter="*">All</a></li>
-            <li><a class="btn btn-default" href="#" data-filter=".html">Html</a></li>
-            <li><a class="btn btn-default" href="#" data-filter=".wordpress">Wordpress</a></li>
-            <li><a class="btn btn-default" href="#" data-filter=".joomla">Joomla</a></li>
-            <li><a class="btn btn-default" href="#" data-filter=".megento">Megento</a></li>
-        </ul>*@<!--/#portfolio-filter-->
-        <div id="targetpanel">
-            @{Html.RenderAction("_List", "Gallary");}
-        </div>
+                    <li><a class="btn btn-default active" href="#" data-filter="*">All</a></li>
+                    <li><a class="btn btn-default" href="#" data-filter=".html">Html</a></li>
+                    <li><a class="btn btn-default" href="#" data-filter=".wordpress">Wordpress</a></li>
+                    <li><a class="btn btn-default" href="#" data-filter=".joomla">Joomla</a></li>
+                    <li><a class="btn btn-default" href="#" data-filter=".megento">Megento</a></li>
+                </ul>*@<!--/#portfolio-filter-->
+            <div id="targetpanel">
+                @{Html.RenderAction("_List", "Gallary");}
+            </div>
         </div>
         @*@Html.PagedListPager((IPagedList)Model, page => Url.Action("_showGallary", new
                 {
@@ -46,4 +54,11 @@
 
 </div>
 
-
+@*<script type="text/javascript" src="~/Scripts/jquery.js"></script>
+        <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/smoothscroll.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery.isotope.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery.prettyPhoto.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery.parallax.js"></script>
+    <script type="text/javascript" src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@

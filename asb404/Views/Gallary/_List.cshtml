@@ -5,15 +5,15 @@
 @{
     DBContexter _db = new DBContexter();
 }
-@*<link href="~/Content/animate.min.css" rel="stylesheet" />
-    <link href="~/css/bootstrap.min.css" rel="stylesheet">*@
-<link href="~/Content/prettyPhoto.css" rel="stylesheet">
-@*<link href="~/Content/font-awesome.min.css" rel="stylesheet">
-    <link href="~/Content/animate.css" rel="stylesheet">
-    <link href="~/Content/main.css" rel="stylesheet">
-    <link href="~/Content/responsive.css" rel="stylesheet">
-    <link href="~/Content/FontFarsi.css" rel="stylesheet" />*@
 
+<link href="~/Content/animate.min.css" rel="stylesheet" />
+<link href="~/css/bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/prettyPhoto.css" rel="stylesheet">
+<link href="~/Content/font-awesome.min.css" rel="stylesheet">
+<link href="~/Content/animate.css" rel="stylesheet">
+<link href="~/Content/main.css" rel="stylesheet">
+<link href="~/Content/responsive.css" rel="stylesheet">
+<link href="~/Content/FontFarsi.css" rel="stylesheet" />
 
 
 <div class="portfolio-items">
@@ -42,30 +42,18 @@
                         <h4>@item.Date.ToString()</h4>
                     }
                     <a href="@Website"><i class="fa fa-link"></i></a>
-
                     <a href="@item.image" data-gallery="prettyPhoto"><i class="fa fa-search-plus"></i></a>
                     @if (Request.IsAuthenticated)
                     {
                         <a href="~/project/DeleteGallary/@item.id"><i class="fa fa-minus"></i></a>
-
-
                     }
                 </div>
             </div>
-
         </div>
-
     }
 
 </div>
-<script type="text/javascript" src="~/Scripts/jquery.js"></script>
-<script type="text/javascript" src="~/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="~/Scripts/smoothscroll.js"></script>
-<script type="text/javascript" src="~/Scripts/jquery.isotope.min.js"></script>
-<script type="text/javascript" src="~/Scripts/jquery.prettyPhoto.js"></script>
-<script type="text/javascript" src="~/Scripts/jquery.parallax.js"></script>
-<script type="text/javascript" src="~/Scripts/main.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
 
 <br />
 <div>
@@ -73,7 +61,7 @@
 {
    page,
    LiElementClasses = new List<string>
-{ "myClass", "yourClass" },
+{ "portfolio-image", "portfolio-item" },
    //The following properties are the same as OnlyShowFivePagesAtATime
    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
    DisplayLinkToLastPage = PagedListDisplayMode.Always,
