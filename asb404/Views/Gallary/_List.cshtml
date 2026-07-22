@@ -6,25 +6,15 @@
     DBContexter _db = new DBContexter();
 }
 
-<link href="~/Content/animate.min.css" rel="stylesheet" />
-<link href="~/css/bootstrap.min.css" rel="stylesheet">
-<link href="~/Content/prettyPhoto.css" rel="stylesheet">
-<link href="~/Content/font-awesome.min.css" rel="stylesheet">
-<link href="~/Content/animate.css" rel="stylesheet">
-<link href="~/Content/main.css" rel="stylesheet">
-<link href="~/Content/responsive.css" rel="stylesheet">
-<link href="~/Content/FontFarsi.css" rel="stylesheet" />
-
-
 <div class="portfolio-items">
     @foreach (var item in Model)
     {
         string cs = "", Website = "";
-        var mm = _db.Project.Find(item.idx);
+        var mm = _db.Projects.Find(item.idx);
         if (mm != null)
         {
-            cs = _db.Project.Find(item.idx).Customer;
-            Website = _db.Project.Find(item.idx).Website;
+            cs = _db.Projects.Find(item.idx).Customer;
+            Website = _db.Projects.Find(item.idx).Website;
         }
 
         <div class="col-sm-3 col-xs-12 portfolio-item html">
@@ -71,5 +61,5 @@
 ,
         @Productid = 2,
         Text = ViewBag.text
-    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "get", UpdateTargetId = "targetpanel", InsertionMode = InsertionMode.Replace, LoadingElementId = "div_loading" }))
+    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "get", UpdateTargetId = "targetpanel", InsertionMode = InsertionMode.Replace, LoadingElementId = "div_loading", OnSuccess = "reinitGallery" }))
 </div>

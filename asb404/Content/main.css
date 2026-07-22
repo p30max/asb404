@@ -42,6 +42,7 @@ body {
 	font-family: W_yekan,Wyekan,B Yekan;
 	position: relative;
 	font-weight:400;
+	font-size: 16px;
 	background: #fff;
 	color:#43484E
 }
@@ -271,7 +272,7 @@ h1, h2, h3, h4, h5, h6 {
 #navigation .navbar-nav.navbar-right li a {
 	color: #43484E;
 	font-family:W_yekan,Wyekan,B Yekan;
-	font-size: 15px;
+	font-size: 17px;
 	padding: 0;
 	text-transform: uppercase;
 	-webkit-transition: all .9s ease 0s;
@@ -453,7 +454,7 @@ h1, h2, h3, h4, h5, h6 {
 .title-one {
 	color: #666666;
 	display: inline-block;
-	font-size: 32px;
+	font-size: 36px;
 	font-weight: 600;
 	padding-bottom:10px;
 	text-align: center;
@@ -487,7 +488,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #about-us p {
 	font-weight:300;
-	font-size:15px
+	font-size:17px
 }
 
 .about-us .col-sm-6 {
@@ -1024,7 +1025,7 @@ h1, h2, h3, h4, h5, h6 {
 .clients p {
 	color: #FFFFFF;
 	font-family: W_yekan,Wyekan,B Yekan;
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: 300;
 	letter-spacing: 3px;
 	text-transform: uppercase;
@@ -1108,7 +1109,7 @@ h1, h2, h3, h4, h5, h6 {
 	list-style: none;
 	margin-right: 10px;
 	padding-right: 10px;
-	font-size: 12px;
+	font-size: 14px;
 	color:#999;
 }
 
@@ -1311,7 +1312,7 @@ h1, h2, h3, h4, h5, h6 {
 	background-color:#f6f6f6;
 	padding:25px 0;
 	color:#43484E;
-	font-size:13px;
+	font-size:15px;
 	position:relative;
 	margin-top:1px;
 }

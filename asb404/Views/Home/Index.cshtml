@@ -9,7 +9,7 @@
     <div class="home-pattern"></div>
     <div id="main-carousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            @for (int i = 0; i < _db.Banner.Count(); i++)
+            @for (int i = 0; i < _db.Banners.Count(); i++)
             {
                 if (i == 0)
                 {
@@ -21,10 +21,10 @@
             }
         </ol><!--/.carousel-indicators-->
         <div class="carousel-inner">
-            @if (_db.Banner.Count() > 2)
+            @if (_db.Banners.Count() > 2)
             {
                 int i = 0;
-                foreach (var item in _db.Banner.ToList())
+                foreach (var item in _db.Banners.ToList())
                 {
                     if (i == 0)
                     {
@@ -90,7 +90,7 @@
                         <div>
                             <h2 class="heading animated bounceInDown">Safe security in City</h2>
                             <p class="animated bounceInUp" style="font-size:38px;">اقتدار ، امنیت ، آرامش</p>
-                            <a class="btn btn-default slider-btn animated fadeIn" href="~/project/Showproject">نمونه پروژه ها</a>
+                            <a class="btn btn-default slider-btn animated fadeIn" href="@Url.Action("Index", "Project", new { id = 1 })">نمونه پروژه ها</a>
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                         <div>
                             <h2 class="heading animated bounceInDown">Security in Store Center</h2>
                             <p class="animated bounceInUp" style="font-size:38px;">امنیت خرید شما در مراکز خرید</p>
-                            <a class="btn btn-default slider-btn animated fadeIn" href="~/project/Showproject">نمونه پروژه ها</a>
+                            <a class="btn btn-default slider-btn animated fadeIn" href="@Url.Action("Index", "Project", new { id = 1 })">نمونه پروژه ها</a>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                         <div>
                             <h2 class="farsi-Yekan-1 heading animated bounceInRight">Safe Hospital</h2>
                             <p class="animated bounceInLeft" style="font-size:38px;">امنیت مراکز درمانی و پزشکی</p>
-                            <a class="btn btn-default slider-btn animated bounceInUp" href="~/project/Showproject">نمونه پروژه ها</a>
+                            <a class="btn btn-default slider-btn animated bounceInUp" href="@Url.Action("Index", "Project", new { id = 1 })">نمونه پروژه ها</a>
                         </div>
                     </div>
                 </div>

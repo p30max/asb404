@@ -17,12 +17,42 @@ namespace Asb404.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Add");
+        }
+
+        public ActionResult MigratePasswords()
+        {
+            var users = _db.Users.ToList();
+            int count = 0;
+            foreach (var user in users)
+            {
+                if (user.Password != null && user.Password.Length != 64)
+                {
+                    user.Password = Tools.HashPassword(user.Password);
+                    _db.Entry(user).State = EntityState.Modified;
+                    count++;
+                }
+            }
+            _db.SaveChanges();
+            return Content(string.Format("تبدیل انجام شد. تعداد {0} کاربر آپدیت شد.", count));
+        }
+
+        public ActionResult CheckLogin(string username, string password)
+        {
+            var user = _db.Users.FirstOrDefault(x => x.UserName == username);
+            if (user == null)
+                return Content("کاربر پیدا نشد");
+
+            string inputHash = Tools.HashPassword(password);
+            string result = string.Format(
+                "رمز در DB: {0}<br/>هش ورودی: {1}<br/>مطابقت: {2}",
+                user.Password, inputHash, user.Password == inputHash ? "بله" : "خیر");
+            return Content(result);
         }
 
         public ActionResult _List()
         {
-            return PartialView(_db.Banner.ToList());
+            return PartialView(_db.Banners.ToList());
         }
         [HttpGet]
         public ActionResult Add()
@@ -112,7 +142,7 @@ namespace Asb404.Controllers
 
 
 
-                            if (model.Id == 0) _db.Banner.Add(model);
+                            if (model.Id == 0) _db.Banners.Add(model);
                             else
                             {
 
@@ -242,12 +272,12 @@ namespace Asb404.Controllers
         [HttpGet]
         public ActionResult Delete(int? Id)
         {
-            string FullMaph = Request.MapPath(_db.Banner.Find(Id).Image);
+            string FullMaph = Request.MapPath(_db.Banners.Find(Id).Image);
             if(System.IO.File.Exists(FullMaph))
             {
                 System.IO.File.Delete(FullMaph);
             }
-            _db.Banner.Remove(_db.Banner.Find(Id));
+            _db.Banners.Remove(_db.Banners.Find(Id));
             _db.SaveChanges();
 
             return RedirectToAction("Add","Admin");

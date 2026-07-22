@@ -2,7 +2,7 @@
 @{
     DBContexter _db = new DBContexter();
     int id = ViewBag.ID;
-    var model = _db.Project.Where(x => x.Id == id);
+    var model = _db.Projects.Where(x => x.Id == id);
     var img = model.Select(x => x.image).FirstOrDefault();
     var Customer = model.Select(x => x.Customer).FirstOrDefault();
     var Discription = model.Select(x => x.Discription).FirstOrDefault();

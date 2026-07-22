@@ -15,13 +15,29 @@
 
         protected override void Seed(Asb404.Models.DBContexter context)
         {
-            if(!context.Groups.Any())
-            { 
-            context.Groups.AddOrUpdate(x => x.Id, new Group() { Name = "طرح نظارتی" },new Group() { Name="اجرای احکام"});
-                //  This method will be called after migrating to the latest version.
+            if (!context.Groups.Any())
+            {
+                context.Groups.AddOrUpdate(x => x.Id,
+                    new Group() { Name = "طرح نظارتی" },
+                    new Group() { Name = "اجرای احکام" });
+            }
 
-                //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-                //  to avoid creating duplicate seed data.
+            if (!context.Users.Any(u => u.UserName == "admin"))
+            {
+                context.Users.AddOrUpdate(x => x.UserName, new Users()
+                {
+                    NameFamily  = "Administrator",
+                    UserName    = "admin",
+                    Password    = Asb404.Models.Tools.HashPassword("123456"),
+                    Email       = "admin@example.com",
+                    Mobail      = "09120000000",
+                    Role        = "Admin",
+                    isApproved  = true,
+                    Ostan       = 1,
+                    Shahrestan  = "Tehran",
+                    Address     = "Default Address",
+                    PostCode    = "1111111111"
+                });
             }
         }
     }

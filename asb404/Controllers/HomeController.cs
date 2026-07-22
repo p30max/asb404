@@ -17,7 +17,7 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Test()
         {
-            return View();
+            return RedirectToAction("Index");
         }
         public ActionResult About()
         {

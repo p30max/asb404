@@ -54,6 +54,18 @@
 
 </div>
 
+@section scripts {
+<script type="text/javascript">
+    function reinitGallery() {
+        $("a[data-gallery^='prettyPhoto']").prettyPhoto({ social_tools: false });
+
+        var $p = $('.portfolio-items');
+        if ($p.data('isotope')) { $p.isotope('destroy'); }
+        $p.isotope({ itemSelector: '.col-sm-3', layoutMode: 'fitRows' });
+    }
+</script>
+}
+
 @*<script type="text/javascript" src="~/Scripts/jquery.js"></script>
         <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="~/Scripts/smoothscroll.js"></script>

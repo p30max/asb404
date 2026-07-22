@@ -27,7 +27,7 @@ namespace Asb404.Controllers
             }
             _db.Gallaries.Remove(_db.Gallaries.Find(id));
             _db.SaveChanges();
-            return RedirectToAction("ShowGallary", "Project");
+            return RedirectToAction("list", "Project");
         }
         [HttpGet]
         [Authorize]

@@ -6,14 +6,14 @@ namespace Asb404.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class majid : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.6.0-preview1-final")]
+    public sealed partial class _1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(majid));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_1));
         
         string IMigrationMetadata.Id
         {
-            get { return "202208291850415_majid"; }
+            get { return "202607210450230_1"; }
         }
         
         string IMigrationMetadata.Source

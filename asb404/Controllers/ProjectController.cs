@@ -68,13 +68,13 @@ namespace Asb404.Controllers
                                 //isUploaded = true;
                                 ViewBag.msg = "عکس با موفقیت آپلود شد";
                                 model.image = ("/Images/" /*+ UrlFolder + "/" */+ OrderName);
-                                if (_db.Project.Where(x => x.Customer == model.Customer).Count() >= 1)
+                                if (_db.Projects.Where(x => x.Customer == model.Customer).Count() >= 1)
                                 {
                                     ViewBag.msg = "نام پروژه شما قبلاٌ انتخاب شده لطفٌ مجدد انتخاب کنید";
                                 }
                                 else
                                 {
-                                    _db.Project.Add(model);
+                                    _db.Projects.Add(model);
 
                                     _db.SaveChanges();
                                 }
@@ -109,23 +109,24 @@ namespace Asb404.Controllers
         [Authorize]
         public ActionResult Delete(int? id)
         {
-            string fullPath = Request.MapPath(_db.Project.Find(id).image);
+            string fullPath = Request.MapPath(_db.Projects.Find(id).image);
             if (System.IO.File.Exists(fullPath))
             {
                 System.IO.File.Delete(fullPath);
                 //Session["DeleteSuccess"] = "Yes";
             }
-            _db.Project.Remove(_db.Project.Find(id));
+            _db.Projects.Remove(_db.Projects.Find(id));
             _db.SaveChanges();
-            return RedirectToAction("ListProject");
+            return RedirectToAction("list");
         }
         public ActionResult Index(int id)
         {
+            ViewBag.groupId = id;
             return View();
         }
         public ActionResult _List(int id)
         {
-            return PartialView(_db.Project.Where(x=>x.GroupId==id).ToList());
+            return PartialView(_db.Projects.Where(x=>x.GroupId==id).ToList());
         }
         public ActionResult Detail(int? id)
         {
@@ -135,7 +136,7 @@ namespace Asb404.Controllers
 
         public ActionResult list()
         {
-            var Model = _db.Project.OrderBy(c => c.Customer).ToList();
+            var Model = _db.Projects.OrderBy(c => c.Customer).ToList();
             //var pageNumber = page ?? 1;
             //var Apage = st.ToPagedList(pageNumber, 5);
             //ViewBag.Apage = st.ToPagedList(pageNumber, 5);
@@ -147,7 +148,7 @@ namespace Asb404.Controllers
         [Authorize]
         public ActionResult Edit(int id)
         {
-            return View(_db.Project.Find(id));
+            return View(_db.Projects.Find(id));
         }
         [HttpPost]
 
@@ -218,7 +219,7 @@ namespace Asb404.Controllers
             }
             else
             {
-                if (_db.Project.Where(x => x.Customer == model.Customer).Count() >= 2)
+                if (_db.Projects.Where(x => x.Customer == model.Customer).Count() >= 2)
                 {
                     ViewBag.msg = "نام پروژه شما قبلاٌ انتخاب شده لطفٌ مجدد انتخاب کنید";
                 }
