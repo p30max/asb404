@@ -28,7 +28,7 @@ namespace Asb404.Controllers
             {
                 if (user.Password != null && user.Password.Length != 64)
                 {
-                    user.Password = Tools.HashPassword(user.Password);
+                    user.Password = (user.Password);
                     _db.Entry(user).State = EntityState.Modified;
                     count++;
                 }
@@ -43,7 +43,7 @@ namespace Asb404.Controllers
             if (user == null)
                 return Content("کاربر پیدا نشد");
 
-            string inputHash = Tools.HashPassword(password);
+            string inputHash = (password);
             string result = string.Format(
                 "رمز در DB: {0}<br/>هش ورودی: {1}<br/>مطابقت: {2}",
                 user.Password, inputHash, user.Password == inputHash ? "بله" : "خیر");

@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
             if (string.IsNullOrEmpty(RepPass))
                 return Json("لطفاً رمز عبور جدید خود را تکرار کنید", JsonRequestBehavior.AllowGet);
 
-            string hashedOld = Tools.HashPassword(OldPass);
+            string hashedOld = (OldPass);
             string username   = User.Identity.Name;
 
             if (!_db.Users.Any(x => x.Password == hashedOld && x.UserName == username))
@@ -46,7 +46,7 @@ namespace WebApplication1.Controllers
                 return Json("رمز عبور شما با تکرار آن برابر نیست لطفاً مجدد وارد کنید", JsonRequestBehavior.AllowGet);
 
             var user = _db.Users.First(x => x.Password == hashedOld && x.UserName == username);
-            user.Password = Tools.HashPassword(NewPass);
+            user.Password = (NewPass);
             _db.Entry(user).State = System.Data.Entity.EntityState.Modified;
             _db.SaveChanges();
 
@@ -67,7 +67,8 @@ namespace WebApplication1.Controllers
             if (string.IsNullOrEmpty(password))
                 return Json("رمز عبور خود را وارد کنید", JsonRequestBehavior.AllowGet);
 
-            string hashedPass = Tools.HashPassword(password);
+            string hashedPass = (password);
+           // string hashedPass = (password);
 
             if (!_db.Users.Any(x => x.UserName == Username && x.Password == hashedPass))
                 return Json("نام کاربری یا رمز عبور شما صحیح نمی باشد", JsonRequestBehavior.AllowGet);

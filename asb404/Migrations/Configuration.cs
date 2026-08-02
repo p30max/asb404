@@ -28,7 +28,7 @@
                 {
                     NameFamily  = "Administrator",
                     UserName    = "admin",
-                    Password    = Asb404.Models.Tools.HashPassword("123456"),
+                    Password    = "123456",
                     Email       = "admin@example.com",
                     Mobail      = "09120000000",
                     Role        = "Admin",
