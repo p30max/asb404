@@ -39,10 +39,10 @@
 ======================*/
 
 body {
-	font-family: W_yekan,Wyekan,B Yekan;
+	font-family: MaxFarsi, Tahoma, Arial, sans-serif;
 	position: relative;
-	font-weight:400;
-	font-size: 16px;
+	font-weight:500;
+	font-size: 14.5px;
 	background: #fff;
 	color:#43484E
 }
@@ -70,7 +70,7 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: W_yekan,Wyekan,B Yekan;
+	font-family: WYekan, Tahoma, Arial, sans-serif;
 }
 
 .slider-btn {
@@ -248,7 +248,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 0;
   border-bottom: 0;
   box-shadow: rgba(0, 0, 0, 0.298039) 0px 0px 3px;
-  padding-bottom: 20px;
+  padding-bottom: 28px;
 }
 
 #navigation .navbar-toggle{
@@ -266,20 +266,38 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #navigation .navbar-nav.navbar-right {
-	margin-top:28px
+	margin-top:30px;
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	white-space: nowrap;
 }
 
 #navigation .navbar-nav.navbar-right li a {
 	color: #43484E;
-	font-family:W_yekan,Wyekan,B Yekan;
-	font-size: 17px;
+	font-family: MaxFarsi, Tahoma, Arial, sans-serif;
+	font-size: 15px;
 	padding: 0;
 	text-transform: uppercase;
 	-webkit-transition: all .9s ease 0s;
 	-moz-transition: all .9s ease 0s;
 	-o-transition: all .9s ease 0s;
 	transition: all .9s ease 0s;
-	padding: 6px 15px;
+	padding: 5px 12px;
+	white-space: nowrap;
+}
+
+#navigation .navbar-nav.navbar-right > li {
+	white-space: nowrap;
+}
+
+#navigation .navbar-nav.navbar-right > li > a,
+#navigation .navbar-nav.navbar-right > li > .dropdown-toggle {
+	white-space: nowrap;
+}
+
+#navigation .dropdown-menu {
+	font-size: 13px;
 }
 
 #navigation .navbar-inverse .navbar-nav  .active  a,  
@@ -359,7 +377,7 @@ h1, h2, h3, h4, h5, h6 {
 #main-carousel .carousel-inner h2 {
 	color: #f6f6f6;
 	display: inline-block;
-	font-family:  W_yekan,Wyekan,B Yekan;
+	font-family: MaxFarsi, Tahoma, Arial, sans-serif;
 	font-size: 55px;
 	font-weight: 800;
 	margin-bottom: 40px;
@@ -373,7 +391,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #main-carousel .carousel-inner p {
 	color: #f6f6f6;
-	font-family: W_yekan,Wyekan,B Yekan;
+	font-family: MaxFarsi, Tahoma, Arial, sans-serif;
 	font-size: 24px;
 	font-weight: 300;
 	margin-bottom: 59px;
@@ -489,6 +507,40 @@ h1, h2, h3, h4, h5, h6 {
 #about-us p {
 	font-weight:300;
 	font-size:17px
+}
+
+.about-page-content {
+	line-height: 2.15;
+}
+
+.about-page-content h3,
+.about-page-content h4 {
+	margin-top: 18px;
+	margin-bottom: 18px;
+}
+
+.about-page-content > div {
+	margin-bottom: 14px;
+}
+
+.ghavanin-page-content {
+	line-height: 2.25;
+}
+
+.ghavanin-page-content a {
+	display: inline-block;
+	margin: 8px 0 10px;
+}
+
+.ghavanin-page-content .collapse {
+	padding-top: 6px;
+	padding-bottom: 10px;
+}
+
+.ghavanin-page-content br {
+	display: block;
+	content: "";
+	margin-top: 7px;
 }
 
 .about-us .col-sm-6 {
@@ -836,6 +888,15 @@ h1, h2, h3, h4, h5, h6 {
   width:100%;
 }
 
+.project-title {
+	font-size: 18px;
+	line-height: 1.6;
+	min-height: 64px;
+	max-height: none !important;
+	white-space: normal;
+	word-break: break-word;
+}
+
 .view {  
   cursor: default;
   height: 100%;
@@ -900,7 +961,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .mask h3 {
 	color: #43484E;
-	font-family: W_yekan,Wyekan,B Yekan;
+	font-family: MaxFarsi, Tahoma, Arial, sans-serif;
 	font-size: 22px;
 	font-weight: 700;
 	margin-top: 30px;
@@ -910,7 +971,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .mask h4 {
 	color:#000;
-	font-family:  W_yekan,Wyekan,B Yekan;
+	font-family: MaxFarsi, Tahoma, Arial, sans-serif;
 	font-size: 14px;
 	font-weight: 200;
 	padding: 0 35px 5px;
@@ -1049,6 +1110,7 @@ h1, h2, h3, h4, h5, h6 {
 .blog-heading {
 	margin-bottom: 35px;
 	margin-top: 15px;
+	font-size: 18px;
 }
 
 .single-blog {
@@ -1089,7 +1151,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .single-blog h2 {
 	color:#43484E;
-	font-size:24px;
+	font-family: MaxFarsi, Tahoma, Arial, sans-serif;
+	font-size:21px;
+	line-height: 1.5;
+	min-height: 64px;
+	white-space: normal;
+	word-break: break-word;
 }
 
 .single-blog h2{

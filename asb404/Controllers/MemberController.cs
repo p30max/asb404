@@ -25,7 +25,8 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangePassword(string OldPass, string NewPass, string RepPass, Users Crus)
+        [Authorize]
+        public ActionResult ChangePassword(string OldPass, string NewPass, string RepPass)
         {
             if (string.IsNullOrEmpty(OldPass))
                 return Json("لطفاً رمز عبور فعلی خود را وارد کنید", JsonRequestBehavior.AllowGet);
@@ -36,17 +37,19 @@ namespace WebApplication1.Controllers
             if (string.IsNullOrEmpty(RepPass))
                 return Json("لطفاً رمز عبور جدید خود را تکرار کنید", JsonRequestBehavior.AllowGet);
 
-            string hashedOld = (OldPass);
-            string username   = User.Identity.Name;
+            string username = User.Identity.Name;
+            var user = _db.Users.FirstOrDefault(x => x.UserName == username);
 
-            if (!_db.Users.Any(x => x.Password == hashedOld && x.UserName == username))
+            if (user == null)
+                return Json("کاربر شما پیدا نشد لطفاً دوباره وارد سایت شوید", JsonRequestBehavior.AllowGet);
+
+            if (user.Password != OldPass)
                 return Json("رمز عبور فعلی شما درست نمی باشد لطفاً دوباره وارد کنید", JsonRequestBehavior.AllowGet);
 
             if (NewPass != RepPass)
                 return Json("رمز عبور شما با تکرار آن برابر نیست لطفاً مجدد وارد کنید", JsonRequestBehavior.AllowGet);
 
-            var user = _db.Users.First(x => x.Password == hashedOld && x.UserName == username);
-            user.Password = (NewPass);
+            user.Password = NewPass;
             _db.Entry(user).State = System.Data.Entity.EntityState.Modified;
             _db.SaveChanges();
 
@@ -67,8 +70,7 @@ namespace WebApplication1.Controllers
             if (string.IsNullOrEmpty(password))
                 return Json("رمز عبور خود را وارد کنید", JsonRequestBehavior.AllowGet);
 
-            string hashedPass = (password);
-           // string hashedPass = (password);
+            string hashedPass = password;
 
             if (!_db.Users.Any(x => x.UserName == Username && x.Password == hashedPass))
                 return Json("نام کاربری یا رمز عبور شما صحیح نمی باشد", JsonRequestBehavior.AllowGet);

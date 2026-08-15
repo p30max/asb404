@@ -31,9 +31,9 @@
                     <li><a class="btn btn-default" href="#" data-filter=".wordpress">Wordpress</a></li>
                     <li><a class="btn btn-default" href="#" data-filter=".joomla">Joomla</a></li>
                     <li><a class="btn btn-default" href="#" data-filter=".megento">Megento</a></li>
-                </ul>*@<!--/#portfolio-filter-->
+            </ul>*@<!--/#portfolio-filter-->
             <div id="targetpanel">
-                @{Html.RenderAction("_List", "Gallary");}
+                @Html.Partial("_List", Model)
             </div>
         </div>
         @*@Html.PagedListPager((IPagedList)Model, page => Url.Action("_showGallary", new

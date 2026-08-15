@@ -17,11 +17,13 @@
             Website = _db.Projects.Find(item.idx).Website;
         }
 
+        var imagePath = (item.image ?? "").Replace("/Images/", "/images/");
+
         <div class="col-sm-3 col-xs-12 portfolio-item html">
             <div class="view efffect">
 
                 <div class="portfolio-image">
-                    <img src="@item.image" alt="" style="height:200px;width:300px;">
+                    <img src="@Url.Content("~" + imagePath)" alt="" style="height:200px;width:300px;">
 
                 </div>
                 <div class="mask text-center">
@@ -32,10 +34,10 @@
                         <h4>@item.Date.ToString()</h4>
                     }
                     <a href="@Website"><i class="fa fa-link"></i></a>
-                    <a href="@item.image" data-gallery="prettyPhoto"><i class="fa fa-search-plus"></i></a>
+                    <a href="@Url.Content("~" + imagePath)" data-gallery="prettyPhoto"><i class="fa fa-search-plus"></i></a>
                     @if (Request.IsAuthenticated)
                     {
-                        <a href="~/project/DeleteGallary/@item.id"><i class="fa fa-minus"></i></a>
+                    <a href="~/Gallary/Delete/@item.id"><i class="fa fa-minus"></i></a>
                     }
                 </div>
             </div>
@@ -45,21 +47,22 @@
 </div>
 
 
-<br />
-<div>
-    @Html.PagedListPager((IPagedList)Model, page => Url.Action("_List", new
+@if (Model is IPagedList)
 {
-   page,
-   LiElementClasses = new List<string>
-{ "portfolio-image", "portfolio-item" },
-   //The following properties are the same as OnlyShowFivePagesAtATime
-   DisplayLinkToFirstPage = PagedListDisplayMode.Always,
-   DisplayLinkToLastPage = PagedListDisplayMode.Always,
-   DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-   DisplayLinkToNextPage = PagedListDisplayMode.Always,
-   MaximumPageNumbersToDisplay = 5
-,
-        @Productid = 2,
-        Text = ViewBag.text
-    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "get", UpdateTargetId = "targetpanel", InsertionMode = InsertionMode.Replace, LoadingElementId = "div_loading", OnSuccess = "reinitGallery" }))
-</div>
+    <br />
+    <div>
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("_List", new
+        {
+           page,
+           LiElementClasses = new List<string>
+        { "portfolio-image", "portfolio-item" },
+           DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+           DisplayLinkToLastPage = PagedListDisplayMode.Always,
+           DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+           DisplayLinkToNextPage = PagedListDisplayMode.Always,
+           MaximumPageNumbersToDisplay = 5,
+           @Productid = 2,
+           Text = ViewBag.text
+        }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "get", UpdateTargetId = "targetpanel", InsertionMode = InsertionMode.Replace, LoadingElementId = "div_loading", OnSuccess = "reinitGallery" }))
+    </div>
+}

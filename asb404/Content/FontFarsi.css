@@ -1,43 +1,73 @@
 ﻿
 
 @font-face {
-    font-family: 'WYekan';
-    src: url('../fonts/farsi/WYekan.eot') format('embedded-opentype');
-        src: url('../fonts/farsi/Wyekan.eot?#iefix') format('embedded-opentype'),
-    /*url('../fonts/farsi/Wyekan.woff2') format('woff2'),*/
-    url('../fonts/farsi/Wyekan.woff') format('woff'), url('../fonts/farsi/Wyekan.ttf') format('truetype'), url('../fonts/farsi/Wyekan.svg#Wyekan') format('svg');
+    font-family: 'MaxFarsi';
+    src: url('../fonts/farsi/29a4348a.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
+
+:root {
+    --font-farsi: 'MaxFarsi', Tahoma, Arial, sans-serif;
+}
+
+html, body {
+    font-family: var(--font-farsi);
+}
+
+body, input, textarea, select, button {
+    font-family: var(--font-farsi);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-farsi);
+}
+
+.navbar,
+.navbar a,
+.navbar-nav,
+.navbar-nav > li > a,
+.dropdown-menu,
+.dropdown-menu > li > a,
+.navbar-brand,
+.nav,
+.nav a {
+    font-family: var(--font-farsi);
+}
+
 .farsi-Yekan {
-    font-family: W_yekan,Wyekan,B Yekan;
+    font-family: var(--font-farsi);
     font-size: 14px;
     font-weight: 400;
 }
+
 .farsi-Yekan-1 {
-    font-family: W_yekan,Wyekan,B Yekan;
+    font-family: var(--font-farsi);
     font-size: 15px;
     font-weight: 400;
 }
 
 .farsi-Yekan-2 {
-    font-family: W_yekan,Wyekan,B Yekan;
+    font-family: var(--font-farsi);
     font-size: 18px;
     font-weight: 400;
 }
+
 .farsi-Yekan-h1 {
-    font-family: W_yekan,Wyekan,B Yekan;
+    font-family: var(--font-farsi);
     font-weight: 500;
     font-size: 22px;
 }
+
 .farsi-Yekan-h2 {
-    font-family: W_yekan,Wyekan,B Yekan;
+    font-family: var(--font-farsi);
     font-weight: 500;
     font-size: 24px;
 }
+
 .farsi-Yekan-h3 {
-    font-family: W_yekan,Wyekan,B Yekan;
-font-size: 36px;
+    font-family: var(--font-farsi);
+    font-size: 36px;
     font-weight: 500;
 }
 .Panel-google-White{
@@ -121,34 +151,34 @@ font-size: 36px;
     padding: 20px;
 }
 
- ::-webkit-input-placeholder {
- font-family:W_yekan,Wyekan,B Yekan!important;
+::-webkit-input-placeholder {
+ font-family:var(--font-farsi)!important;
  text-align:right;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-    font-family:W_yekan,Wyekan,B Yekan!important;
+    font-family:var(--font-farsi)!important;
      text-align:right;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-     font-family:W_yekan,Wyekan,B Yekan!important;
+     font-family:var(--font-farsi)!important;
       text-align:right;
 }
 
 /* Overriding styles */
 
 ::-webkit-input-placeholder {
-font-family:W_yekan,Wyekan,B Yekan!important;
+font-family:var(--font-farsi)!important;
  text-align:right;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-     font-family:W_yekan,Wyekan,B Yekan!important;
+     font-family:var(--font-farsi)!important;
       text-align:right;
 }
 ::-moz-placeholder {  /* Firefox 19+ */
-  font-family:W_yekan,Wyekan,B Yekan!important;
+  font-family:var(--font-farsi)!important;
    text-align:right;
 }
  .scrollup {

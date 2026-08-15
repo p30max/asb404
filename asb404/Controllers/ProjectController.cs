@@ -1,4 +1,4 @@
-﻿using Asb404.Models;
+using Asb404.Models;
 using ImageResizer;
 using System;
 using System.Drawing;
@@ -11,123 +11,133 @@ namespace Asb404.Controllers
 {
     public class ProjectController : Controller
     {
-        DBContexter _db = new DBContexter();
-        Tools _tools = new Tools();
-        // GET: Project
+        private readonly DBContexter _db = new DBContexter();
+        private readonly Tools _tools = new Tools();
+        private static readonly string[] AllowedImageExtensions = { ".jpg", ".png" };
+
         [HttpGet]
         [Authorize]
         public ActionResult Add()
         {
             return View();
         }
-        [HttpPost]
 
+        [HttpPost]
         public ActionResult Add(Project model, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View();
 
+            if (file == null)
             {
-
-                if (file == null)
-                {
-
-
-                    ViewBag.msg = "لطفاً عکس مورد نظر را انتخاب کنید";
-
-                }
-                else
-                if (System.IO.Path.GetExtension(file.FileName).ToLower() != ".jpg" && System.IO.Path.GetExtension(file.FileName).ToLower() != ".jpeg")
-                {
-                    ViewBag.msg = "عکس مورد نظر فقط باید jpg باشد";
-                }
-                else
-                  if (!(file.ContentLength < 1024 * 8000))
-                {
-                    ViewBag.msg = "عکس نباید از 8000 کیلو بایت بیشتر باشد";
-                }
-                else
-                {
-                    Image oImage = Image.FromStream(file.InputStream);
-                    if ((oImage.Width > 8192) || (oImage.Height > 6144))
-                    {
-
-                        ViewBag.msg = "سایز عکس نباید از 4k بیشتر باشد";
-                    }
-                    else
-
-                    if (file != null && file.ContentLength != 0)
-                    {
-                        // string UrlFolder = _db.GroupMain.Find(model.GroupID).Name;
-                        string pathForSaving = Server.MapPath("~/Images/");
-                        if (_tools.CreateFolderIfNeeded(pathForSaving))
-                        {
-                            try
-                            {
-                                string OrderName = model.Customer + System.IO.Path.GetExtension(file.FileName).ToLower();
-                                file.SaveAs(Path.Combine(pathForSaving, OrderName));
-                                //isUploaded = true;
-                                ViewBag.msg = "عکس با موفقیت آپلود شد";
-                                model.image = ("/Images/" /*+ UrlFolder + "/" */+ OrderName);
-                                if (_db.Projects.Where(x => x.Customer == model.Customer).Count() >= 1)
-                                {
-                                    ViewBag.msg = "نام پروژه شما قبلاٌ انتخاب شده لطفٌ مجدد انتخاب کنید";
-                                }
-                                else
-                                {
-                                    _db.Projects.Add(model);
-
-                                    _db.SaveChanges();
-                                }
-                                string path1 = Server.MapPath("/Images/" /*+ UrlFolder + "/" */+ OrderName);
-                                string path2 = Server.MapPath("/Images/" /*+ UrlFolder + "/" */+ OrderName);
-                                ResizeSettings resizeSetting = new ResizeSettings
-                                {
-                                    Mode = FitMode.Stretch,
-                                    Width = 600,
-                                    Height = 400,
-
-                                    Format = "jpg"
-                                };
-                                ImageBuilder.Current.Build(path1, path2, resizeSetting);
-
-                            }
-                            catch (Exception ex)
-                            {
-                                ViewBag.msg = string.Format("File upload failed: {0}", ex.Message);
-                            }
-                        }
-                    }
-
-                }
-
-
-
-
+                ViewBag.msg = "لطفاً عکس مورد نظر را انتخاب کنید";
+                return View();
             }
+
+            string inputExtension = Path.GetExtension(file.FileName).ToLower();
+            if (!AllowedImageExtensions.Contains(inputExtension))
+            {
+                ViewBag.msg = "فقط فایل تصویری معتبر انتخاب کنید";
+                return View();
+            }
+
+            if (!(file.ContentLength < 1024 * 8000))
+            {
+                ViewBag.msg = "عکس نباید از 8000 کیلو بایت بیشتر باشد";
+                return View();
+            }
+
+            Image oImage = Image.FromStream(file.InputStream);
+            if ((oImage.Width > 8192) || (oImage.Height > 6144))
+            {
+                ViewBag.msg = "سایز عکس نباید از 4k بیشتر باشد";
+                return View();
+            }
+
+            if (file.InputStream.CanSeek)
+            {
+                file.InputStream.Position = 0;
+            }
+
+            if (_db.Projects.Any(x => x.Customer == model.Customer))
+            {
+                ViewBag.msg = "نام پروژه شما قبلاٌ انتخاب شده لطفٌ مجدد انتخاب کنید";
+                return View();
+            }
+
+            string pathForSaving = Server.MapPath("~/Images/");
+            if (!_tools.CreateFolderIfNeeded(pathForSaving))
+            {
+                ViewBag.msg = "ساخت پوشه تصاویر با خطا مواجه شد";
+                return View();
+            }
+
+            try
+            {
+                string baseName = Guid.NewGuid().ToString("N");
+                string tempName = baseName + inputExtension;
+                string outputName = baseName + ".jpg";
+                string tempPath = Path.Combine(pathForSaving, tempName);
+                string outputPath = Path.Combine(pathForSaving, outputName);
+
+                file.SaveAs(tempPath);
+
+                ResizeSettings resizeSetting = new ResizeSettings
+                {
+                    Mode = FitMode.Stretch,
+                    Width = 600,
+                    Height = 400,
+                    Format = "jpg"
+                };
+
+                ImageBuilder.Current.Build(tempPath, outputPath, resizeSetting);
+
+                if (System.IO.File.Exists(tempPath))
+                    System.IO.File.Delete(tempPath);
+
+                model.image = "/Images/" + outputName;
+                _db.Projects.Add(model);
+                _db.SaveChanges();
+
+                ViewBag.msg = "عکس با موفقیت آپلود شد";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.msg = string.Format("File upload failed: {0}", ex.Message);
+            }
+
             return View();
         }
+
         [Authorize]
         public ActionResult Delete(int? id)
         {
-            string fullPath = Request.MapPath(_db.Projects.Find(id).image);
-            if (System.IO.File.Exists(fullPath))
+            var project = _db.Projects.Find(id);
+            if (project == null)
+                return RedirectToAction("list");
+
+            string fullPath = Request.MapPath(project.image);
+            if (!string.IsNullOrWhiteSpace(fullPath) && System.IO.File.Exists(fullPath))
             {
                 System.IO.File.Delete(fullPath);
-                //Session["DeleteSuccess"] = "Yes";
             }
-            _db.Projects.Remove(_db.Projects.Find(id));
+
+            _db.Projects.Remove(project);
             _db.SaveChanges();
             return RedirectToAction("list");
         }
+
         public ActionResult Index(int id)
         {
             ViewBag.groupId = id;
             return View();
         }
+
         public ActionResult _List(int id)
         {
-            return PartialView(_db.Projects.Where(x=>x.GroupId==id).ToList());
+            return PartialView(_db.Projects.Where(x => x.GroupId == id).ToList());
         }
+
         public ActionResult Detail(int? id)
         {
             ViewBag.id = id;
@@ -136,88 +146,21 @@ namespace Asb404.Controllers
 
         public ActionResult list()
         {
-            var Model = _db.Projects.OrderBy(c => c.Customer).ToList();
-            //var pageNumber = page ?? 1;
-            //var Apage = st.ToPagedList(pageNumber, 5);
-            //ViewBag.Apage = st.ToPagedList(pageNumber, 5);
-            //ViewBag.Apage = Apage;
-            //return PartialView(ViewBag.Apage);
-            return View(Model);
+            var model = _db.Projects.OrderBy(c => c.Customer).ToList();
+            return View(model);
         }
+
         [HttpGet]
         [Authorize]
         public ActionResult Edit(int id)
         {
             return View(_db.Projects.Find(id));
         }
-        [HttpPost]
 
+        [HttpPost]
         public ActionResult Edit(Project model, HttpPostedFileBase file)
         {
-            if (file != null)
-            {
-
-
-
-
-
-
-                if (System.IO.Path.GetExtension(file.FileName).ToLower() != ".jpg" && System.IO.Path.GetExtension(file.FileName).ToLower() != ".jpeg")
-                {
-                    ViewBag.msg = "عکس مورد نظر فقط باید jpg باشد";
-                }
-                else
-                  if (!(file.ContentLength < 1024 * 8000))
-                {
-                    ViewBag.msg = "عکس نباید از 8000 کیلو بایت بیشتر باشد";
-                }
-                else
-                {
-                    Image oImage = Image.FromStream(file.InputStream);
-                    if ((oImage.Width > 8192) || (oImage.Height > 6144))
-                    {
-
-                        ViewBag.msg = "سایز عکس نباید از 4k بیشتر باشد";
-                    }
-                    else
-
-                    if (file != null && file.ContentLength != 0)
-                    {
-                        // string UrlFolder = _db.GroupMain.Find(model.GroupID).Name;
-                        string pathForSaving = Server.MapPath("~/Images/");
-                        if (_tools.CreateFolderIfNeeded(pathForSaving))
-                        {
-                            try
-                            {
-                                string OrderName = model.Customer + System.IO.Path.GetExtension(file.FileName).ToLower();
-                                file.SaveAs(Path.Combine(pathForSaving, OrderName));
-                                //isUploaded = true;
-                                ViewBag.msg = "عکس با موفقیت آپلود شد";
-                                model.image = ("/Images/" /*+ UrlFolder + "/" */+ OrderName);
-
-
-                                string path1 = Server.MapPath("/Images/" /*+ UrlFolder + "/" */+ OrderName);
-                                string path2 = Server.MapPath("/Images/" /*+ UrlFolder + "/" */+ OrderName);
-                                ResizeSettings resizeSetting = new ResizeSettings
-                                {
-                                    Mode = FitMode.Stretch,
-                                    Width = 600,
-                                    Height = 400,
-
-                                    Format = "jpg"
-                                };
-                                ImageBuilder.Current.Build(path1, path2, resizeSetting);
-
-                            }
-                            catch (Exception ex)
-                            {
-                                ViewBag.msg = string.Format("File upload failed: {0}", ex.Message);
-                            }
-                        }
-                    }
-                }
-            }
-            else
+            if (file == null)
             {
                 if (_db.Projects.Where(x => x.Customer == model.Customer).Count() >= 2)
                 {
@@ -230,13 +173,68 @@ namespace Asb404.Controllers
                     ViewBag.msg = "ویرایش با موفقیت انجام شد";
                 }
 
+                return View();
+            }
+
+            string inputExtension = Path.GetExtension(file.FileName).ToLower();
+            if (!AllowedImageExtensions.Contains(inputExtension))
+            {
+                ViewBag.msg = "فقط فایل تصویری معتبر انتخاب کنید";
+                return View();
+            }
+
+            if (!(file.ContentLength < 1024 * 8000))
+            {
+                ViewBag.msg = "عکس نباید از 8000 کیلو بایت بیشتر باشد";
+                return View();
+            }
+
+            Image oImage = Image.FromStream(file.InputStream);
+            if ((oImage.Width > 8192) || (oImage.Height > 6144))
+            {
+                ViewBag.msg = "سایز عکس نباید از 4k بیشتر باشد";
+                return View();
+            }
+
+            string pathForSaving = Server.MapPath("~/Images/");
+            if (!_tools.CreateFolderIfNeeded(pathForSaving))
+            {
+                ViewBag.msg = "ساخت پوشه تصاویر با خطا مواجه شد";
+                return View();
+            }
+
+            try
+            {
+                string baseName = Guid.NewGuid().ToString("N");
+                string tempName = baseName + inputExtension;
+                string outputName = baseName + ".jpg";
+                string tempPath = Path.Combine(pathForSaving, tempName);
+                string outputPath = Path.Combine(pathForSaving, outputName);
+
+                file.SaveAs(tempPath);
+
+                ResizeSettings resizeSetting = new ResizeSettings
+                {
+                    Mode = FitMode.Stretch,
+                    Width = 600,
+                    Height = 400,
+                    Format = "jpg"
+                };
+
+                ImageBuilder.Current.Build(tempPath, outputPath, resizeSetting);
+
+                if (System.IO.File.Exists(tempPath))
+                    System.IO.File.Delete(tempPath);
+
+                model.image = "/Images/" + outputName;
+                ViewBag.msg = "عکس با موفقیت آپلود شد";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.msg = string.Format("File upload failed: {0}", ex.Message);
             }
 
             return View();
         }
-
-
-
-
     }
 }

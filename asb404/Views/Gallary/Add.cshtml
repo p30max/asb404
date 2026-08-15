@@ -23,7 +23,7 @@
                 <div class="farsi-Yekan-1 text-center Panel-google-White" style="padding:20px 20px 20px 20px; direction:rtl;">
                     <h3 class="text-center">اضافه کردن عکس به پروژه</h3>
 
-                    <div id="msg" class="farsi-Yekan Label-google" style="height:10px;color:red;">@ViewBag.msg</div>
+                    <div id="msg" class="farsi-Yekan Label-google" style="height:10px;color:red;">@(TempData["msg"] ?? ViewBag.msg)</div>
 
                     @using (Html.BeginForm("Add", "Gallary", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.idx, htmlAttributes: new { @class = "control-label col-md-3" })
                                 <div class="col-md-9">
-                                    @Html.DropDownListFor(model => model.idx,pname,"نام پروژه را انتخاب کنید",  new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.idx, pname, "نام پروژه را انتخاب کنید", new { @class = "form-control", onchange = "location.href='/Gallary/Add?id=' + this.value;" })
                                     @Html.ValidationMessageFor(model => model.idx, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -84,5 +84,18 @@
             @Html.ActionLink("Back to List", "Index", "Home")
         </div>
     </div>
+    @if (ViewBag.SelectedProjectId != null)
+    {
+        <div class="container" style="margin-top:35px;">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-center" style="margin-bottom:20px;">لیست تصاویر همین پروژه</h4>
+                    <div id="targetpanel">
+                        @{ Html.RenderAction("_List", "Gallary", new { id = ViewBag.SelectedProjectId }); }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
   
 </section>
