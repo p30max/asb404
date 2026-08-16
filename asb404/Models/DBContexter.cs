@@ -12,6 +12,7 @@ namespace Asb404.Models
         public virtual DbSet<Project> Projects { set; get; }
         public virtual  DbSet<Gallary> Gallaries { get; set; }
         public virtual DbSet<Subscribe> Subscribes { get; set; }
+        public virtual DbSet<ContactMessage> ContactMessages { get; set; }
         public virtual DbSet<Banner> Banners { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
     }

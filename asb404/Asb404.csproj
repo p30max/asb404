@@ -521,6 +521,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CommunicationsController.cs" />
     <Compile Include="Controllers\GallaryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
@@ -532,8 +533,10 @@
     <Compile Include="Migrations\202607210450230_1.Designer.cs">
       <DependentUpon>202607210450230_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202608160000000_AddContactMessages.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Banner.cs" />
+    <Compile Include="Models\ContactMessage.cs" />
     <Compile Include="Models\DBContexter.cs" />
     <Compile Include="Models\Gallary.cs" />
     <Compile Include="Models\Group.cs" />

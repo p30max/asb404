@@ -1,4 +1,5 @@
 using Asb404.Models;
+using ImageResizer;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -102,21 +103,36 @@ namespace Asb404.Controllers
             {
                 string baseName = Guid.NewGuid().ToString("N");
                 string orderName = baseName + ".png";
+                string sourceExt = string.IsNullOrWhiteSpace(Path.GetExtension(file.FileName)) ? ".img" : Path.GetExtension(file.FileName);
+                string tempPath = Path.Combine(Path.GetTempPath(), baseName + sourceExt);
                 string outputPath = Path.Combine(pathForSaving, orderName);
+
+                file.SaveAs(tempPath);
+                if (!System.IO.File.Exists(tempPath))
+                {
+                    ViewBag.msg = "فایل روی سرور ذخیره نشد";
+                    return View();
+                }
 
                 try
                 {
-                    file.InputStream.Position = 0;
-                    using (var sourceImage = Image.FromStream(file.InputStream, true, true))
+                    ResizeSettings resizeSetting = new ResizeSettings
+                    {
+                        Mode = FitMode.Stretch,
+                        Width = 800,
+                        Height = 600,
+                        Format = "png"
+                    };
+
+                    ImageBuilder.Current.Build(tempPath, outputPath, resizeSetting);
+                }
+                catch
+                {
+                    using (var sourceImage = Image.FromFile(tempPath))
                     using (var bitmap = new Bitmap(sourceImage))
                     {
                         bitmap.Save(outputPath, ImageFormat.Png);
                     }
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.msg = string.Format("ذخیره تصویر انجام نشد: {0}", ex.Message);
-                    return View();
                 }
 
                 if (!System.IO.File.Exists(outputPath))
@@ -124,6 +140,9 @@ namespace Asb404.Controllers
                     ViewBag.msg = "فایل خروجی ساخته نشد";
                     return View();
                 }
+
+                if (System.IO.File.Exists(tempPath))
+                    System.IO.File.Delete(tempPath);
 
                 model.image = urlFolder + "/" + orderName;
                 _db.Gallaries.Add(model);
@@ -133,7 +152,7 @@ namespace Asb404.Controllers
             }
             catch (Exception ex)
             {
-                TempData["msg"] = string.Format("File upload failed: {0}", ex.Message);
+                TempData["msg"] = string.Format("File upload failed: {0}", ex.ToString());
                 return RedirectToAction("Add", new { id = model.idx });
             }
         }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WebApplication1.Controllers
+namespace Asb404.Controllers
 {
     public class HomeController : Controller
     {
@@ -49,14 +49,27 @@ namespace WebApplication1.Controllers
             {
                 return Json("متن مورد نظر خود را وارد کنید", JsonRequestBehavior.AllowGet);
             }
-            
-               if (vlt.ContactMail(email, subject, memo))
+
+            var saved = new ContactMessage
             {
+                Email = email,
+                Subject = subject,
+                Memo = memo,
+                Status = "Pending"
+            };
+            _db.ContactMessages.Add(saved);
+            _db.SaveChanges();
+
+            if (vlt.ContactMail(email, subject, memo))
+            {
+                saved.Status = "Sent";
+                _db.SaveChanges();
                 return Json("درخواست شما ارسال شد", JsonRequestBehavior.AllowGet);
             }
-            
-else
-                return Json("درخواست شما ارسال نشد", JsonRequestBehavior.AllowGet);
+
+            saved.Status = "Failed";
+            _db.SaveChanges();
+            return Json("درخواست شما ارسال نشد", JsonRequestBehavior.AllowGet);
 
 
         }
