@@ -2,6 +2,7 @@ using Asb404.Models;
 using ImageResizer;
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,6 @@ namespace Asb404.Controllers
     {
         private readonly DBContexter _db = new DBContexter();
         private readonly Tools _tools = new Tools();
-        private static readonly string[] AllowedImageExtensions = { ".jpg", ".png" };
 
         [HttpGet]
         [Authorize]
@@ -34,24 +34,30 @@ namespace Asb404.Controllers
                 return View();
             }
 
-            string inputExtension = Path.GetExtension(file.FileName).ToLower();
-            if (!AllowedImageExtensions.Contains(inputExtension))
-            {
-                ViewBag.msg = "فقط فایل تصویری معتبر انتخاب کنید";
-                return View();
-            }
-
             if (!(file.ContentLength < 1024 * 8000))
             {
                 ViewBag.msg = "عکس نباید از 8000 کیلو بایت بیشتر باشد";
                 return View();
             }
 
-            Image oImage = Image.FromStream(file.InputStream);
-            if ((oImage.Width > 8192) || (oImage.Height > 6144))
+            Image oImage;
+            try
             {
-                ViewBag.msg = "سایز عکس نباید از 4k بیشتر باشد";
+                oImage = Image.FromStream(file.InputStream, true, true);
+            }
+            catch
+            {
+                ViewBag.msg = "فقط فایل تصویری معتبر انتخاب کنید";
                 return View();
+            }
+
+            using (oImage)
+            {
+                if ((oImage.Width > 8192) || (oImage.Height > 6144))
+                {
+                    ViewBag.msg = "سایز عکس نباید از 4k بیشتر باشد";
+                    return View();
+                }
             }
 
             if (file.InputStream.CanSeek)
@@ -75,9 +81,9 @@ namespace Asb404.Controllers
             try
             {
                 string baseName = Guid.NewGuid().ToString("N");
-                string tempName = baseName + inputExtension;
-                string outputName = baseName + ".jpg";
-                string tempPath = Path.Combine(pathForSaving, tempName);
+                string outputName = baseName + ".png";
+                string sourceExt = string.IsNullOrWhiteSpace(Path.GetExtension(file.FileName)) ? ".img" : Path.GetExtension(file.FileName);
+                string tempPath = Path.Combine(pathForSaving, baseName + sourceExt);
                 string outputPath = Path.Combine(pathForSaving, outputName);
 
                 file.SaveAs(tempPath);
@@ -87,10 +93,27 @@ namespace Asb404.Controllers
                     Mode = FitMode.Stretch,
                     Width = 600,
                     Height = 400,
-                    Format = "jpg"
+                    Format = "png"
                 };
 
-                ImageBuilder.Current.Build(tempPath, outputPath, resizeSetting);
+                try
+                {
+                    ImageBuilder.Current.Build(tempPath, outputPath, resizeSetting);
+                }
+                catch
+                {
+                    using (var sourceImage = Image.FromFile(tempPath))
+                    using (var bitmap = new Bitmap(sourceImage))
+                    {
+                        bitmap.Save(outputPath, ImageFormat.Png);
+                    }
+                }
+
+                if (!System.IO.File.Exists(outputPath))
+                {
+                    ViewBag.msg = "تبدیل تصویر انجام نشد";
+                    return View();
+                }
 
                 if (System.IO.File.Exists(tempPath))
                     System.IO.File.Delete(tempPath);
@@ -176,24 +199,35 @@ namespace Asb404.Controllers
                 return View();
             }
 
-            string inputExtension = Path.GetExtension(file.FileName).ToLower();
-            if (!AllowedImageExtensions.Contains(inputExtension))
-            {
-                ViewBag.msg = "فقط فایل تصویری معتبر انتخاب کنید";
-                return View();
-            }
-
             if (!(file.ContentLength < 1024 * 8000))
             {
                 ViewBag.msg = "عکس نباید از 8000 کیلو بایت بیشتر باشد";
                 return View();
             }
 
-            Image oImage = Image.FromStream(file.InputStream);
-            if ((oImage.Width > 8192) || (oImage.Height > 6144))
+            Image oImage;
+            try
             {
-                ViewBag.msg = "سایز عکس نباید از 4k بیشتر باشد";
+                oImage = Image.FromStream(file.InputStream, true, true);
+            }
+            catch
+            {
+                ViewBag.msg = "فقط فایل تصویری معتبر انتخاب کنید";
                 return View();
+            }
+
+            using (oImage)
+            {
+                if ((oImage.Width > 8192) || (oImage.Height > 6144))
+                {
+                    ViewBag.msg = "سایز عکس نباید از 4k بیشتر باشد";
+                    return View();
+                }
+            }
+
+            if (file.InputStream.CanSeek)
+            {
+                file.InputStream.Position = 0;
             }
 
             string pathForSaving = Server.MapPath("~/Images/");
@@ -206,9 +240,9 @@ namespace Asb404.Controllers
             try
             {
                 string baseName = Guid.NewGuid().ToString("N");
-                string tempName = baseName + inputExtension;
-                string outputName = baseName + ".jpg";
-                string tempPath = Path.Combine(pathForSaving, tempName);
+                string outputName = baseName + ".png";
+                string sourceExt = string.IsNullOrWhiteSpace(Path.GetExtension(file.FileName)) ? ".img" : Path.GetExtension(file.FileName);
+                string tempPath = Path.Combine(pathForSaving, baseName + sourceExt);
                 string outputPath = Path.Combine(pathForSaving, outputName);
 
                 file.SaveAs(tempPath);
@@ -218,10 +252,27 @@ namespace Asb404.Controllers
                     Mode = FitMode.Stretch,
                     Width = 600,
                     Height = 400,
-                    Format = "jpg"
+                    Format = "png"
                 };
 
-                ImageBuilder.Current.Build(tempPath, outputPath, resizeSetting);
+                try
+                {
+                    ImageBuilder.Current.Build(tempPath, outputPath, resizeSetting);
+                }
+                catch
+                {
+                    using (var sourceImage = Image.FromFile(tempPath))
+                    using (var bitmap = new Bitmap(sourceImage))
+                    {
+                        bitmap.Save(outputPath, ImageFormat.Png);
+                    }
+                }
+
+                if (!System.IO.File.Exists(outputPath))
+                {
+                    ViewBag.msg = "تبدیل تصویر انجام نشد";
+                    return View();
+                }
 
                 if (System.IO.File.Exists(tempPath))
                     System.IO.File.Delete(tempPath);

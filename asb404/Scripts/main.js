@@ -49,9 +49,12 @@ jQuery(function($) {'use strict',
 	//	Scroll();
 	//});
 
-	$('.navbar-collapse ul li a').click(function() {  
-		$('html, body').animate({scrollTop: $(this.hash).offset().top - 79}, 1000);
-		return false;
+	$('.navbar-collapse ul li a').click(function() {
+		var hash = this.hash;
+		if (hash && hash.length > 1 && $(hash).length) {
+			$('html, body').animate({scrollTop: $(hash).offset().top - 79}, 1000);
+			return false;
+		}
 	});
 
 });

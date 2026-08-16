@@ -296,6 +296,33 @@ h1, h2, h3, h4, h5, h6 {
 	white-space: nowrap;
 }
 
+@media (max-width: 767px) {
+	#navigation .navbar-nav.navbar-right {
+		display: block;
+		flex-wrap: initial;
+		align-items: stretch;
+		white-space: normal;
+		margin-top: 0;
+	}
+
+	#navigation .navbar-nav.navbar-right li {
+		display: block;
+		padding: 0;
+	}
+
+	#navigation .navbar-nav.navbar-right li a,
+	#navigation .navbar-nav.navbar-right > li > a,
+	#navigation .navbar-nav.navbar-right > li > .dropdown-toggle {
+		display: block;
+		white-space: normal;
+	}
+
+	#navigation .navbar-collapse {
+		background: rgba(255, 255, 255, 0.98);
+		border-top: 1px solid rgba(0, 0, 0, 0.08);
+	}
+}
+
 #navigation .dropdown-menu {
 	font-size: 13px;
 }

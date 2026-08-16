@@ -17,13 +17,17 @@
             Website = _db.Projects.Find(item.idx).Website;
         }
 
-        var imagePath = (item.image ?? "").Replace("/Images/", "/images/");
+        var imagePath = item.image ?? "";
+        if (!string.IsNullOrWhiteSpace(imagePath) && !imagePath.StartsWith("~"))
+        {
+            imagePath = imagePath.StartsWith("/") ? "~" + imagePath : "~/" + imagePath;
+        }
 
         <div class="col-sm-3 col-xs-12 portfolio-item html">
             <div class="view efffect">
 
                 <div class="portfolio-image">
-                    <img src="@Url.Content("~" + imagePath)" alt="" style="height:200px;width:300px;">
+                    <img src="@Url.Content(imagePath)" alt="" style="height:200px;width:300px;">
 
                 </div>
                 <div class="mask text-center">
@@ -34,7 +38,7 @@
                         <h4>@item.Date.ToString()</h4>
                     }
                     <a href="@Website"><i class="fa fa-link"></i></a>
-                    <a href="@Url.Content("~" + imagePath)" data-gallery="prettyPhoto"><i class="fa fa-search-plus"></i></a>
+                    <a href="@Url.Content(imagePath)" data-gallery="prettyPhoto"><i class="fa fa-search-plus"></i></a>
                     @if (Request.IsAuthenticated)
                     {
                     <a href="~/Gallary/Delete/@item.id"><i class="fa fa-minus"></i></a>

@@ -1,9 +1,9 @@
 using Asb404.Models;
-using ImageResizer;
 using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -15,7 +15,6 @@ namespace Asb404.Controllers
     {
         private readonly DBContexter _db = new DBContexter();
         private readonly Tools _tools = new Tools();
-        private static readonly string[] AllowedImageExtensions = { ".jpg", ".png" };
 
         [Authorize]
         public ActionResult Delete(int? id)
@@ -60,24 +59,30 @@ namespace Asb404.Controllers
                 return View();
             }
 
-            string inputExtension = Path.GetExtension(file.FileName).ToLower();
-            if (!AllowedImageExtensions.Contains(inputExtension))
-            {
-                ViewBag.msg = "فقط فایل تصویری معتبر انتخاب کنید";
-                return View();
-            }
-
             if (!(file.ContentLength < 1024 * 8000))
             {
                 ViewBag.msg = "عکس نباید از 8000 کیلو بایت بیشتر باشد";
                 return View();
             }
 
-            Image oImage = Image.FromStream(file.InputStream);
-            if ((oImage.Width > 8192) || (oImage.Height > 6144))
+            Image oImage;
+            try
             {
-                ViewBag.msg = "سایز عکس نباید از 4 k بیشتر باشد";
+                oImage = Image.FromStream(file.InputStream, true, true);
+            }
+            catch
+            {
+                ViewBag.msg = "فقط فایل تصویری معتبر انتخاب کنید";
                 return View();
+            }
+
+            using (oImage)
+            {
+                if ((oImage.Width > 8192) || (oImage.Height > 6144))
+                {
+                    ViewBag.msg = "سایز عکس نباید از 4 k بیشتر باشد";
+                    return View();
+                }
             }
 
             if (file.InputStream.CanSeek)
@@ -85,7 +90,7 @@ namespace Asb404.Controllers
                 file.InputStream.Position = 0;
             }
 
-            string urlFolder = "/images/Gallary";
+            string urlFolder = "~/images/Gallary";
             string pathForSaving = Server.MapPath(urlFolder);
             if (!_tools.CreateFolderIfNeeded(pathForSaving))
             {
@@ -96,30 +101,29 @@ namespace Asb404.Controllers
             try
             {
                 string baseName = Guid.NewGuid().ToString("N");
-                string tempName = baseName + inputExtension;
-                string orderName = baseName + ".jpg";
-                string tempPath = Path.Combine(pathForSaving, tempName);
+                string orderName = baseName + ".png";
                 string outputPath = Path.Combine(pathForSaving, orderName);
 
-                file.SaveAs(tempPath);
-                if (!System.IO.File.Exists(tempPath))
+                try
                 {
-                    ViewBag.msg = "فایل روی سرور ذخیره نشد";
+                    file.InputStream.Position = 0;
+                    using (var sourceImage = Image.FromStream(file.InputStream, true, true))
+                    using (var bitmap = new Bitmap(sourceImage))
+                    {
+                        bitmap.Save(outputPath, ImageFormat.Png);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.msg = string.Format("ذخیره تصویر انجام نشد: {0}", ex.Message);
                     return View();
                 }
 
-                ResizeSettings resizeSetting = new ResizeSettings
+                if (!System.IO.File.Exists(outputPath))
                 {
-                    Mode = FitMode.Stretch,
-                    Width = 800,
-                    Height = 600,
-                    Format = "jpg"
-                };
-
-                ImageBuilder.Current.Build(tempPath, outputPath, resizeSetting);
-
-                if (System.IO.File.Exists(tempPath))
-                    System.IO.File.Delete(tempPath);
+                    ViewBag.msg = "فایل خروجی ساخته نشد";
+                    return View();
+                }
 
                 model.image = urlFolder + "/" + orderName;
                 _db.Gallaries.Add(model);
@@ -132,8 +136,6 @@ namespace Asb404.Controllers
                 TempData["msg"] = string.Format("File upload failed: {0}", ex.Message);
                 return RedirectToAction("Add", new { id = model.idx });
             }
-
-            return RedirectToAction("Add", new { id = model.idx });
         }
 
         public ActionResult List()

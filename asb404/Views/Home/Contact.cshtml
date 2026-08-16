@@ -18,6 +18,14 @@
         background-color: white;
     }
 </style>
+<style>
+    .contact-map {
+        width: 100%;
+        height: 420px;
+        border: 0;
+        display: block;
+    }
+</style>
 <!-- This is the div that will contain the Google Map -->
 <section id="blog" class="text-center">
 
@@ -25,10 +33,13 @@
         <div class="row">
 
             <div class="panel-body  col-md-12 col-sm-12">
-                @*<div id="map_canvas" class="col-md-12" style="height: 400px;margin-bottom:10px">
-                    </div>*@
                 <div>
-                    <img src="~/images/Amniatsazan.jpg" style="height: 400px; width: 100%;">
+                    <iframe
+                        class="contact-map"
+                        loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDmN6qtVZsJ0fqd9B7GdwpDBAAfwSFBwjI&q=Amniyat%20Sazan%20Bartar%20Chalous">
+                    </iframe>
                 </div>
                 <div class="farsi-Yekan-1 text-justify Panel-google-White col-md-12" style="padding:20px 20px 20px 20px; direction:rtl;">
                     <div class="col-md-6 farsi-Yekan-1 text-right" style="padding:20px">
