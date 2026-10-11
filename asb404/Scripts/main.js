@@ -68,12 +68,21 @@ jQuery(window).load(function(){'use strict';
 jQuery(window).load(function(){'use strict';
 
 	// Slider Height
-	var slideHeight = $(window).height();
-	$('#home .carousel-inner .item, #home .video-container').css('height',slideHeight);
-
-	$(window).resize(function(){'use strict',
-		$('#home .carousel-inner .item, #home .video-container').css('height',slideHeight);
-	});
+	// Desktop: full-screen banner. Tablet/phone (<992px): height comes from CSS
+	// (image aspect ratio) so the whole banner is visible, and the banner is
+	// pushed below the fixed navbar.
+	function setSliderHeight() {
+		var $items = $('#home .carousel-inner .item, #home .video-container');
+		if ($(window).width() >= 992) {
+			$items.css('height', $(window).height());
+			$('#home').css('margin-top', '');
+		} else {
+			$items.css('height', '');
+			$('#home').css('margin-top', $('.navbar').outerHeight() || 0);
+		}
+	}
+	setSliderHeight();
+	$(window).resize(setSliderHeight);
 
 });
 
